@@ -8,13 +8,25 @@
 
     // frame reveal
     const frames = $$('.frame');
+    const hookVisFixed = $('.hook-vis-fixed');
+
     const frameObserver = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
             if (e.isIntersecting) {
                 e.target.classList.add('is-entered');
                 emit('frameEnter', { id: e.target.id });
+
+                // Show hook vis when frame-2 enters
+                if (e.target.id === 'frame-2' && hookVisFixed) {
+                    hookVisFixed.classList.add('is-visible');
+                }
             } else {
                 emit('frameExit', { id: e.target.id });
+
+                // Hide hook vis when frame-2 exits
+                if (e.target.id === 'frame-2' && hookVisFixed) {
+                    hookVisFixed.classList.remove('is-visible');
+                }
             }
         });
     }, { threshold: 0.2 });
