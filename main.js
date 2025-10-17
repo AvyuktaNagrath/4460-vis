@@ -9,6 +9,7 @@
     // frame reveal
     const frames = $$('.frame');
     const hookVisFixed = $('.hook-vis-fixed');
+    const hookScrollHint = $('.hook-scroll-hint');
 
     const frameObserver = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
@@ -16,16 +17,18 @@
                 e.target.classList.add('is-entered');
                 emit('frameEnter', { id: e.target.id });
 
-                // Show hook vis when frame-2 enters
-                if (e.target.id === 'frame-2' && hookVisFixed) {
-                    hookVisFixed.classList.add('is-visible');
+                // Show hook elements when frame-2 enters
+                if (e.target.id === 'frame-2') {
+                    if (hookVisFixed) hookVisFixed.classList.add('is-visible');
+                    if (hookScrollHint) hookScrollHint.classList.add('is-visible');
                 }
             } else {
                 emit('frameExit', { id: e.target.id });
 
-                // Hide hook vis when frame-2 exits
-                if (e.target.id === 'frame-2' && hookVisFixed) {
-                    hookVisFixed.classList.remove('is-visible');
+                // Hide hook elements when frame-2 exits
+                if (e.target.id === 'frame-2') {
+                    if (hookVisFixed) hookVisFixed.classList.remove('is-visible');
+                    if (hookScrollHint) hookScrollHint.classList.remove('is-visible');
                 }
             }
         });
@@ -44,7 +47,7 @@
                 emit('frameStep', { frameId: frame?.id || null, step: stepId });
             }
         });
-    }, { rootMargin: '-30% 0px -50% 0px', threshold: 0.01 });
+    }, { threshold: 0.5 });
     steps.forEach((s) => stepObserver.observe(s));
 
     // keyboard quick reset for demo placeholders

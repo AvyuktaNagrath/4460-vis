@@ -5,6 +5,27 @@
     scroll-snap-type: x mandatory;
 }
 
+.frame--hook .hook-scroll-hint {
+    position: fixed;
+    top: 2rem;
+    right: 3rem;
+    background: rgba(255,255,255,.95);
+    padding: 0.75rem 1.25rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.frame--hook .hook-scroll-hint.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
 .frame--hook .hook-scroll-container {
     display: flex;
     width: 300vw;
@@ -20,8 +41,8 @@
     justify-content: flex-end;
     padding-right: 3rem;
     scroll-snap-align: start;
-    opacity: 0.3;
-    transition: opacity 0.4s;
+    opacity: 0.1;
+    transition: opacity 0.2s;
 }
 
 .frame--hook .hook-phase.is-active {
