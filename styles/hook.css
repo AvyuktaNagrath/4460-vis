@@ -1,41 +1,96 @@
-.frame--hook .vis-svg--hero {
-    max-height: 80vh;
+.frame--hook {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: block;
+    scroll-snap-type: x mandatory;
 }
 
-.frame--hook .step p {
-    font-size: 1.125rem;
-    font-weight: 500;
+.frame--hook .hook-scroll-hint {
+    position: fixed;
+    top: 2rem;
+    right: 3rem;
+    background: rgba(255,255,255,.95);
+    padding: 0.75rem 1.25rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
 }
 
-.frame--hook .narrative-container {
-    display: grid;
-    grid-template-columns: 70% 30%;
+.frame--hook .hook-scroll-hint.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.frame--hook .hook-scroll-container {
+    display: flex;
+    width: 300vw;
     height: 100vh;
-    position: sticky;
-    top: 0;
 }
 
-.frame--hook .narrative-vis {
+.frame--hook .hook-phase {
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 3rem;
+    justify-content: flex-end;
+    padding-right: 3rem;
+    scroll-snap-align: start;
+    opacity: 0.1;
+    transition: opacity 0.2s;
 }
 
-.frame--hook .narrative-steps {
-    display: flex;
-    flex-direction: column;
+.frame--hook .hook-phase.is-active {
+    opacity: 1;
 }
 
-.frame--hook .narrative-step {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 3rem 3rem 3rem 2rem;
+.frame--hook .hook-content {
+    max-width: 20rem;
+    background: rgba(255,255,255,.98);
+    padding: 2rem;
+    border-radius: .6rem;
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    column-count: 2;
+    column-gap: 1.5rem;
 }
 
-.frame--hook .narrative-step p {
-    font-size: 1.25rem;
+.frame--hook .hook-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.frame--hook .hook-content p {
+    font-size: 1.125rem;
     line-height: 1.6;
-    color: var(--fg);
+    color: var(--muted);
+}
+
+.frame--hook .hook-vis-fixed {
+    position: sticky;
+    top: 10%;
+    left: 2rem;
+    transform: translateY(-135%);
+    width: 70vw;
+    max-width: 1000px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .2s, visibility .2s;
+}
+
+.frame--hook .hook-vis-fixed.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.frame--hook .vis-svg--hero {
+    max-height: 60vh;
+    pointer-events: auto;
 }

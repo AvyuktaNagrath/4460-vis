@@ -56,6 +56,11 @@ body {
     transform: none;
 }
 
+.frame--hook {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
 .frame--pin {
     height: auto;
     min-height: 100vh;

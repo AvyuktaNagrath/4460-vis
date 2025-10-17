@@ -26,7 +26,7 @@
             <h1 id="f0-title">Visualizing Economic Reality<br/>Through Market Data</h1>
             <p class="subtitle">Does the stock market truly mirror the economy?</p>
             <p class="byline">Ruby Yu · Kelly Zhou · Avyukta Nagrath · Arnav Ketineni</p>
-            <div class="scroll-cue" aria-hidden="true">▿</div>
+            <div class="scroll-cue" aria-hidden="true">▽</div>
         </div>
     </section>
 
@@ -49,14 +49,33 @@
     </section>
 
     <!-- 2) HOOK -->
-    <section id="frame-2" class="frame frame--pin frame--hook" aria-labelledby="f2-title">
-        <div class="pin">
-            <div class="vis-stage vis-stage--hero">
-                <svg id="vis-hook-lines" class="vis-svg vis-svg--hero" viewBox="0 0 1440 810" role="img" aria-label="Intro GDP vs Market lines">
-                    <g class="plot-area"></g>
-                    <text class="placeholder" x="24" y="50">Hook lines placeholder</text>
-                </svg>
+    <section id="frame-2" class="frame frame--hook" aria-labelledby="f2-title">
+        <div class="hook-scroll-hint">Scroll horizontally →</div>
+        <div class="hook-scroll-container">
+            <div class="hook-phase step" data-step="market">
+                <div class="hook-content">
+                    <h2>This is the Market</h2>
+                    <p>The S&P 500 tracks what investors believe companies are worth. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                </div>
             </div>
+            <div class="hook-phase step" data-step="economy">
+                <div class="hook-content">
+                    <h2>This is the Economy</h2>
+                    <p>GDP measures real output. Usually, they move together. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                </div>
+            </div>
+            <div class="hook-phase step" data-step="diverge">
+                <div class="hook-content">
+                    <h2>But They Diverge</h2>
+                    <p>During crises, markets recover months before the economy does. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                </div>
+            </div>
+        </div>
+        <div class="hook-vis-fixed">
+            <svg id="vis-hook-lines" class="vis-svg vis-svg--hero" viewBox="0 0 1440 810" role="img" aria-label="Intro GDP vs Market lines">
+                <g class="plot-area"></g>
+                <text class="placeholder" x="24" y="50">Hook lines placeholder</text>
+            </svg>
         </div>
     </section>
 
