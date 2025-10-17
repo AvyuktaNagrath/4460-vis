@@ -10,6 +10,12 @@
     font-size: clamp(1.375rem, 3.6vw, 2rem);
 }
 
+.frame--takeaways .cards-hint {
+    margin: 0 0 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
 .frame--takeaways .card {
     display: inline-flex;
     flex-direction: column;
@@ -23,6 +29,7 @@
     padding: 1.25rem 1.5rem;
     background: #fff;
     transition: transform .2s, box-shadow .2s;
+    cursor: pointer;
 }
 
 .frame--takeaways .card:hover {
@@ -30,13 +37,71 @@
     box-shadow: 0 6px 20px rgba(0,0,0,.08);
 }
 
-.frame--takeaways .card .icon {
-    font-size: 2rem;
-    margin-bottom: .6rem;
-}
-
 .frame--takeaways .card p {
     margin: 0;
-    color: var(--muted);
+    color: var(--fg);
+    font-weight: 500;
     line-height: 1.5;
+}
+
+/* Modal */
+.insight-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.insight-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.insight-modal-content {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 3rem;
+    max-width: 50rem;
+    width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,.2);
+    transform: scale(0.9);
+    transition: transform 0.3s;
+}
+
+.insight-modal.is-open .insight-modal-content {
+    transform: scale(1);
+}
+
+.insight-modal-content h2 {
+    margin: 0 0 1.5rem;
+    font-size: 2rem;
+    color: var(--fg);
+}
+
+.insight-modal-content p {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 1.125rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: flex-end;
+}
+
+.modal-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
 }
