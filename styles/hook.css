@@ -1,0 +1,41 @@
+.frame--hook .vis-svg--hero {
+    max-height: 80vh;
+}
+
+.frame--hook .step p {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.frame--hook .narrative-container {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.frame--hook .narrative-vis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+}
+
+.frame--hook .narrative-steps {
+    display: flex;
+    flex-direction: column;
+}
+
+.frame--hook .narrative-step {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 3rem 3rem 3rem 2rem;
+}
+
+.frame--hook .narrative-step p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--fg);
+}

@@ -1,0 +1,65 @@
+.frame--explore .hud--left {
+    min-width: 12rem;
+}
+
+.frame--explore .hud--right {
+    min-width: 10rem;
+}
+
+.frame--explore .hud h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.frame--explore .brush-rect {
+    cursor: move;
+}
+
+.frame--explore .event-capture {
+    cursor: crosshair;
+}
+
+.frame--explore .ctl {
+    margin: .6rem 0;
+}
+
+.frame--explore .ctl select {
+    width: 100%;
+    max-width: 8rem;
+    margin-left: 0;
+    margin-top: .25rem;
+    display: block;
+}
+
+.frame--explore .btn {
+    width: 100%;
+    text-align: center;
+}
+
+.frame--explore .stat {
+    padding: .3rem 0;
+    border-bottom: 1px solid rgba(229, 231, 235, .5);
+}
+
+.frame--explore .stat:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 900px) {
+    .frame--explore .hud--left,
+    .frame--explore .hud--right {
+        position: fixed;
+        bottom: 1.5rem;
+        top: auto;
+    }
+
+    .frame--explore .hud--left {
+        left: 1.5rem;
+        right: auto;
+    }
+
+    .frame--explore .hud--right {
+        right: 1.5rem;
+        left: auto;
+    }
+}

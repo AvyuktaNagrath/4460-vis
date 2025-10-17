@@ -1,0 +1,7 @@
+.frame--chrono .vis-svg {
+    max-height: 60vh;
+}
+
+.frame--chrono .step {
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}

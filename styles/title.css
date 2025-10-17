@@ -1,0 +1,48 @@
+.frame--title .centered {
+    width: min(100%, calc(var(--stage-max) - 2 * var(--stage-pad)));
+    margin-inline: auto;
+    padding: clamp(3rem, 6vw, 6rem) var(--stage-pad);
+    text-align: center;
+    position: relative;
+}
+
+.frame--title .gridlines {
+    position: absolute;
+    inset: 0;
+    background-image:
+            linear-gradient(to right, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px),
+            linear-gradient(to bottom, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px);
+    background-size: 3.75rem 3.75rem;
+    opacity: .08;
+    pointer-events: none;
+}
+
+.frame--title h1 {
+    margin: 0 0 .5rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.1;
+}
+
+.frame--title .subtitle {
+    margin: .25rem 0 1rem;
+    color: var(--muted);
+}
+
+.frame--title .byline {
+    margin: 0;
+    color: var(--muted);
+}
+
+.scroll-cue {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 1.5rem;
+    text-align: center;
+    color: var(--muted);
+    animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: .25; }
+    50% { opacity: 1; }
+}

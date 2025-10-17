@@ -1,0 +1,15 @@
+.frame--sector .panel__title {
+    font-size: 1.125rem;
+    background: rgba(249, 250, 251, .8);
+    border-radius: .4rem;
+}
+
+.frame--sector .vis-svg {
+    border-radius: .5rem;
+}
+
+@media (max-width: 900px) {
+    .frame--sector .panel__title {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,46 @@
+.frame--geo .steps h2 {
+    font-size: 1.625rem;
+    margin-bottom: .75rem;
+}
+
+.frame--geo .vis-svg {
+    border-radius: .5rem;
+}
+
+.frame--geo .narrative-container {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.frame--geo .narrative-vis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+}
+
+.frame--geo .narrative-steps {
+    display: flex;
+    flex-direction: column;
+}
+
+.frame--geo .narrative-step {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 3rem 3rem 3rem 2rem;
+}
+
+.frame--geo .narrative-step h2 {
+    font-size: 1.625rem;
+    margin-bottom: .75rem;
+}
+
+.frame--geo .narrative-step p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--fg);
+}

@@ -1,0 +1,19 @@
+.frame--crisis .vis-svg--timeline {
+    max-height: 25vh;
+}
+
+.frame--crisis .vis-svg--heatmap {
+    max-height: 55vh;
+}
+
+.frame--crisis .brush-rect {
+    cursor: ew-resize;
+}
+
+.frame--crisis .event-capture {
+    cursor: crosshair;
+}
+
+.frame--crisis .vis-svg--timeline:hover .brush-rect[visibility="visible"] {
+    fill: rgba(14, 165, 233, .18);
+}
