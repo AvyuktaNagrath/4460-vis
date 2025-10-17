@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="styles/explore.css" />
     <link rel="stylesheet" href="styles/takeaways.css" />
     <script defer src="main.js"></script>
+    <script defer src="takeaways.js"></script>
 </head>
 <body>
 <main>
@@ -152,9 +153,31 @@
     <section id="frame-7" class="frame frame--takeaways" aria-labelledby="f7-title">
         <div class="cards">
             <h2 id="f7-title">What the Data Says for Diversification</h2>
-            <div class="card"><div class="icon">🌍</div><p>Diversify by region. Recovery speeds differ.</p></div>
-            <div class="card"><div class="icon">⏳</div><p>Time rebalances after recoveries. Markets lead GDP.</p></div>
-            <div class="card"><div class="icon">🧩</div><p>Mix cyclical and defensive sectors.</p></div>
+            <p class="cards-hint">Click a card for more details</p>
+            <div class="card" data-insight="geographic">
+                <p>Diversify by region. Recovery speeds differ.</p>
+            </div>
+            <div class="card" data-insight="chronological">
+                <p>Time rebalances after recoveries. Markets lead GDP.</p>
+            </div>
+            <div class="card" data-insight="sector">
+                <p>Mix cyclical and defensive sectors.</p>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="insight-modal" class="insight-modal" aria-hidden="true">
+            <div class="insight-modal-content">
+                <h2 id="modal-title">Insight Title</h2>
+                <div id="modal-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="modal-actions">
+                    <button id="modal-close" class="btn btn--secondary">Close</button>
+                    <button id="modal-goto" class="btn btn--primary">Go to Visualization</button>
+                </div>
+            </div>
         </div>
     </section>
 
