@@ -17,3 +17,64 @@
 .frame--crisis .vis-svg--timeline:hover .brush-rect[visibility="visible"] {
     fill: rgba(14, 165, 233, .18);
 }
+
+.frame--crisis .axis path,
+.frame--crisis .axis line {
+    display: none;
+}
+
+.frame--crisis .axis text {
+    font-size: 12px;
+    color: #4a5568;
+    /* Allows D3 to override font-family if needed */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.frame--crisis .crisis-label {
+    font-size: 14px;
+    font-weight: 600;
+    fill: #4a5568;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.frame--crisis .cell-label {
+    font-size: 11px;
+    font-weight: 500;
+    pointer-events: none;
+    text-anchor: middle;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.frame--crisis .legend-container {
+    font-size: 12px;
+    color: #4a5568;
+}
+
+.frame--crisis .legend-title {
+    font-size: 12px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.frame--crisis .legend-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 4px;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 12px;
+    background: #2d3748;
+    color: white;
+    border-radius: 6px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 999; /* Ensure it appears on top */
+}

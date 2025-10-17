@@ -14,13 +14,17 @@
     <link rel="stylesheet" href="styles/sector.css" />
     <link rel="stylesheet" href="styles/explore.css" />
     <link rel="stylesheet" href="styles/takeaways.css" />
-    <script defer src="main.js"></script>
-    <script defer src="takeaways.js"></script>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <script defer src="js/main.js"></script>
+    <script defer src="js/takeaways.js"></script>
+    <script defer src="js/chronological.js"></script>
+    <script defer src="js/crisis.js"></script>
 </head>
 <body>
 <main>
 
-    <!-- 0) TITLE -->
     <section id="frame-0" class="frame frame--title" aria-labelledby="f0-title">
         <div class="centered">
             <div class="gridlines" aria-hidden="true"></div>
@@ -31,7 +35,6 @@
         </div>
     </section>
 
-    <!-- 1) INTRO -->
     <section id="frame-1" class="frame frame--intro" aria-labelledby="f1-title">
         <div class="intro-wrap">
             <div class="intro-text">
@@ -49,7 +52,6 @@
         </div>
     </section>
 
-    <!-- 2) HOOK -->
     <section id="frame-2" class="frame frame--hook" aria-labelledby="f2-title">
         <div class="hook-scroll-hint">Scroll horizontally →</div>
         <div class="hook-scroll-container">
@@ -80,7 +82,6 @@
         </div>
     </section>
 
-    <!-- 3) GEOGRAPHIC -->
     <section id="frame-3" class="frame frame--pin frame--geo" aria-labelledby="f3-title">
         <div class="pin">
             <div class="vis-stage">
@@ -92,19 +93,17 @@
         </div>
     </section>
 
-    <!-- 4) CHRONOLOGICAL -->
     <section id="frame-4" class="frame frame--pin frame--chrono" aria-labelledby="f4-title">
         <div class="pin">
             <div class="vis-stage vis-stage--top">
                 <svg id="vis-ak1" class="vis-svg" viewBox="0 0 1200 420" role="img" aria-label="GDP vs Market line chart">
                     <g class="plot-area"></g>
-                    <text class="placeholder" x="24" y="40">AK1: GDP vs Market lines placeholder</text>
+                    <text class="placeholder" x="24" y="40">GDP vs Market lines</text>
                 </svg>
             </div>
         </div>
     </section>
 
-    <!-- 5) CRISIS DETAIL -->
     <section id="frame-5" class="frame frame--pin frame--crisis" aria-labelledby="f5-title">
         <div class="pin">
             <div class="vis-stage vis-stage--stack">
@@ -116,7 +115,6 @@
                 <svg id="vis-kz2" class="vis-svg vis-svg--heatmap" viewBox="0 0 1200 500" role="img" aria-label="Sector × Crisis heatmap">
                     <g class="plot-area"></g>
                     <text class="placeholder" x="24" y="40">KZ2: Heatmap placeholder (hover cells)</text>
-                    <rect class="event-capture" x="0" y="0" width="1200" height="500" fill="transparent"></rect>
                 </svg>
             </div>
             <div class="info-card" aria-live="polite">
@@ -126,7 +124,6 @@
         </div>
     </section>
 
-    <!-- 6) SECTOR -->
     <section id="frame-6" class="frame frame--pin frame--sector" aria-labelledby="f6-title">
         <div class="pin">
             <div class="vis-stage vis-stage--twin">
@@ -149,7 +146,6 @@
         </div>
     </section>
 
-    <!-- 7) TAKEAWAYS -->
     <section id="frame-7" class="frame frame--takeaways" aria-labelledby="f7-title">
         <div class="cards">
             <h2 id="f7-title">What the Data Says for Diversification</h2>
@@ -165,7 +161,6 @@
             </div>
         </div>
 
-        <!-- Modal -->
         <div id="insight-modal" class="insight-modal" aria-hidden="true">
             <div class="insight-modal-content">
                 <h2 id="modal-title">Insight Title</h2>
@@ -181,7 +176,6 @@
         </div>
     </section>
 
-    <!-- 8) EXPLORATION -->
     <section id="frame-8" class="frame frame--pin frame--explore" aria-labelledby="f8-title">
         <div class="pin">
             <div class="vis-stage">
