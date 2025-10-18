@@ -1,5 +1,3 @@
-// takeaways.js
-
 (function () {
 
     const modal = document.getElementById('insight-modal');
@@ -29,7 +27,7 @@
 
     let currentTarget = null;
 
-    // Open modal when card is clicked
+    // open
     cards.forEach(card => {
         card.addEventListener('click', () => {
             const insight = card.getAttribute('data-insight');
@@ -45,14 +43,14 @@
         });
     });
 
-    // Close modal
+    // close
     modalClose.addEventListener('click', () => {
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
         currentTarget = null;
     });
 
-    // Go to visualization
+    // vis cta
     modalGoto.addEventListener('click', () => {
         if (currentTarget) {
             modal.classList.remove('is-open');
@@ -62,7 +60,7 @@
         }
     });
 
-    // Close modal on background click
+    // additioanl close for off modal click for ui sake
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.remove('is-open');
@@ -70,14 +68,4 @@
             currentTarget = null;
         }
     });
-
-    // Close modal on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('is-open')) {
-            modal.classList.remove('is-open');
-            modal.setAttribute('aria-hidden', 'true');
-            currentTarget = null;
-        }
-    });
-
 })();
