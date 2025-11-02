@@ -1,15 +1,80 @@
-.frame--sector .panel__title {
-    font-size: 1.125rem;
-    background: rgba(249, 250, 251, .8);
-    border-radius: .4rem;
+/* --------------------------
+   Layout of the sector frame
+   -------------------------- */
+
+.frame--sector .vis-stage--twin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
+
+.frame--sector .panel {
+    flex: 1 1 460px;       /* try to keep each ~460px wide */
+    max-width: 520px;      /* don't let it stretch too huge */
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.frame--sector .panel__title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #111;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    background: rgba(249, 250, 251, .8);
+    border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.frame--sector .panel__body {
+    padding: 1rem;
+}
+
+/* The dashed "card" for the svg */
+.frame--sector .svg-shell {
+    background: #fbfcfd;
+    border: 1px dashed #d1d5db;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+/* --------------------------
+   SVG sizing / visibility
+   -------------------------- */
 
 .frame--sector .vis-svg {
-    border-radius: .5rem;
+    display: block;
+    /* we will explicitly set width/height in JS.
+       just make sure it doesn't get squished by flexbox */
+    max-width: 100%;
+    height: auto;
+    overflow: visible;
+    border-radius: 0.5rem;
+    background: transparent;
+    position: relative;
+    z-index: 10; /* sit above any weird overlay */
 }
 
-@media (max-width: 900px) {
-    .frame--sector .panel__title {
-        font-size: 1rem;
-    }
+/* --------------------------
+   Text inside treemap tiles
+   -------------------------- */
+
+.cell-label {
+    font-size: 10px;
+    font-weight: 500;
+    fill: #111;          /* dark text so it's readable */
+    pointer-events: none;
+    text-shadow:
+            0 1px 2px rgba(255,255,255,0.6),
+            0 -1px 2px rgba(255,255,255,0.4);
 }
+
