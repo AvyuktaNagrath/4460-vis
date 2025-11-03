@@ -371,3 +371,21 @@ body {
 #vis-an6 .country {
     pointer-events: auto;
 }
+
+#frame-3 .vis-stage {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+#vis-an6 {
+    flex: 1;
+    max-width: 1200px;
+    height: auto;
+}
+
+#vis-an6-info {
+    width: 400px;
+    height: auto;
+    flex-shrink: 0;
+}
