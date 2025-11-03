@@ -41,9 +41,7 @@
             .call(d3.axisLeft(y).tickSize(0))
             .select(".domain").remove();
 
-        const tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
+        const tooltip = d3.select("#tooltip");
 
         const mouseover = (event, d) => {
             tooltip.style("opacity", 1);
@@ -51,7 +49,9 @@
         };
         const mousemove = (event, d) => {
             tooltip
-                .html(`<b>${d.Industry} (${d.Year})</b><br>${d.Crisis}<br>Change: ${d.PercentChange.toFixed(1)}%`)
+                .html(`<h3>${d.Crisis}</h3>
+                       <span class="type">Sector: ${d.Industry} (${d.Year})</span>
+                       <p>Change: ${d.PercentChange.toFixed(1)}%</p>`)
                 .style("left", (event.pageX + 15) + "px")
                 .style("top", (event.pageY - 10) + "px");
         };
@@ -88,7 +88,7 @@
             .attr("width", x.bandwidth())
             .attr("height", y.bandwidth())
             .style("fill", d => myColor(d.PercentChange))
-            .attr("data-year", d => d.Year) // --- CHANGED ---
+            .attr("data-year", d => d.Year)
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave);
@@ -103,7 +103,7 @@
             .attr("dy", ".35em")
             .style("fill", d => Math.abs(d.PercentChange) > 15 ? "white" : "#2d3748")
             .text(d => d.PercentChange.toFixed(1) + "%")
-            .attr("data-year", d => d.Year); // --- CHANGED ---
+            .attr("data-year", d => d.Year);
 
         const legendContainer = d3.select("#frame-5 .info-card");
 
@@ -178,42 +178,6 @@ const eventsData = [
         color: "#ff7f0e",
         heatmap_key: ["2008", "2009"]
     },
-    /*
-    {
-        name: "European Debt Crisis",
-        focusDate: new Date("2011-01-01"),
-        type: "Economic",
-        description: "Crisis in sovereign debt of eurozone countries (e.g., Greece, Ireland).",
-        yOffset: -40,
-        color: "#1f77b4"
-    },
-    {
-        name: "Taper Tantrum",
-        focusDate: new Date("2013-05-22"),
-        type: "Financial",
-        description: "A surge in global bond yields after the US Federal Reserve indicated it might 'taper' its quantitative easing program.",
-        yOffset: 40,
-        color: "#9467bd"
-    },
-    {
-        name: "Brexit Referendum",
-        focusDate: new Date("2016-06-23"),
-        type: "Political/Economic",
-        description: "The UK voted to leave the European Union, causing significant market volatility and long-term trade uncertainty.",
-        yOffset: -40,
-        color: "#8c564b"
-    },
-    {
-        name: "US-China Trade War",
-        startDate: new Date("2018-07-06"),
-        endDate: new Date("2020-01-15"),
-        type: "Economic/Political",
-        description: "A period of escalating tariffs and trade barriers between the US and China, disrupting global supply chains.",
-        yOffset: 40,
-        color: "#e377c2"
-    },
-
-     */
     {
         name: "COVID-19 Pandemic",
         startDate: new Date("2020-02-01"),
@@ -269,24 +233,19 @@ function drawTimelineVis() {
         .attr("transform", `translate(0, ${axisYCenter})`)
         .call(xAxis);
 
-    // --- CHANGED ---
-    // Updated mouse handlers to control the heatmap
     const onMouseOver = function(event, d) {
         tooltip.style("opacity", 1);
 
         const keys = d.heatmap_key;
         if (keys) {
-            // Dim all heatmap elements
             d3.selectAll("#vis-kz2 .cell, #vis-kz2 .cell-label")
                 .transition().duration(200)
                 .style("opacity", 0.15);
 
-            // Create a D3 selector for each key
             const selector = (Array.isArray(keys) ? keys : [keys])
                 .map(key => `#vis-kz2 [data-year="${key}"]`)
                 .join(", ");
 
-            // Highlight the matching elements
             d3.selectAll(selector)
                 .transition().duration(200)
                 .style("opacity", 1);
@@ -296,8 +255,8 @@ function drawTimelineVis() {
     const onMouseMove = function(event, d) {
         tooltip.html(
             `<h3>${d.name}</h3>
-             <span class="type" style="font-style: italic; color: #555;">Type: ${d.type}</span>
-             <p style="margin: 0; color: #333;">${d.description}</p>`
+             <span>Type: ${d.type}</span>
+             <p>${d.description}</p>`
         )
             .style("left", (event.pageX + 15) + "px")
             .style("top", (event.pageY - 10) + "px");
@@ -306,7 +265,6 @@ function drawTimelineVis() {
     const onMouseOut = function(event, d) {
         tooltip.style("opacity", 0);
 
-        // Restore all heatmap elements
         d3.selectAll("#vis-kz2 .cell, #vis-kz2 .cell-label")
             .transition().duration(200)
             .style("opacity", 1);
