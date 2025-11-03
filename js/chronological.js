@@ -238,7 +238,6 @@ window.addEventListener("load", function() {
         const mainGroup = svg.select("g.plot-area")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        const tooltip = d3.select("#tooltip");
 
         svg.select("text.placeholder").remove();
 
@@ -423,7 +422,6 @@ window.addEventListener("load", function() {
                     focusLine.style("opacity", 0);
                     focusCircles.style("opacity", 0);
                     hoverLabel.style("opacity", 0);
-                    tooltip.style("opacity", 0);
                 })
                 .on("mousemove", (event) => {
                     const [mx, my] = d3.pointer(event, mainGroup.node());
@@ -484,11 +482,6 @@ window.addEventListener("load", function() {
                                 .attr("fill", color(closestData.country))
                                 .text(`${closestData.country}: ${closestData.value.toFixed(2)}% in ${closestData.year}`)
                                 .style("opacity", 1);
-
-                            tooltip.style("opacity", 1)
-                                .style("left", (event.pageX + 15) + "px")
-                                .style("top", (event.pageY - 10) + "px")
-                                .html(`<strong>${closestData.country}</strong><br>${closestData.year}: ${closestData.value.toFixed(2)}%`);
 
                         } else {
                             hoverLabel.style("opacity", 0);
