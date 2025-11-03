@@ -10,18 +10,49 @@
     const insightData = {
         geographic: {
             title: 'Diversify by Region',
-            body: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+            body: `
+              <p>
+                Recovery times vary greatly across regions. Developed economies like the U.S.
+                and Canada rebounded within months, while emerging markets took years to return
+                to pre-crisis output. 
+              </p>
+              <p>
+                Diversifying across regions smooths volatility — markets in Asia or Europe may
+                lag or lead North America depending on crisis type and monetary policy timing.
+              </p>
+            `,
             target: '#frame-3'
         },
         chronological: {
             title: 'Time Rebalances After Recoveries',
-            body: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+            body: `
+              <p>
+                Financial markets typically recover before real economic activity does.
+                After every major downturn — the Dot-com Bust, the Great Recession, and COVID-19 —
+                equity indices surged months before GDP growth turned positive.
+              </p>
+              <p>
+                This lead-lag dynamic shows that markets price in future expectations rather
+                than current performance. Recognizing this helps investors avoid overreacting
+                to short-term shocks.
+              </p>
+            `,
             target: '#frame-4'
         },
 
         sector: {
             title: 'Mix Cyclical and Defensive Sectors',
-            body: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+            body: `
+              <p>
+                Sectoral imbalances widen during crises. Manufacturing and construction tend
+                to contract sharply, while finance, healthcare, and information services stay
+                resilient or recover faster.
+              </p>
+              <p>
+                A portfolio combining cyclical (tech, industrials) and defensive (healthcare,
+                utilities) sectors balances growth potential with stability across market cycles.
+              </p>
+            `,
             target: '#frame-6'
         }
     };
