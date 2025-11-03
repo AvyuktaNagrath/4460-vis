@@ -247,7 +247,7 @@ class GlobalMapVis {
                 .style("font-size", "14px")
                 .style("line-height", "1.35")
                 .style("color", "#475569")
-                .text("Hover any country to see specific stats. Switch modes above to compare GDP, Market, and the difference between the two")
+                .text("Hover any country to see specific stats. Switch modes above to compare GDP, Market, and the difference between the two. Select a region in the table to highlight its countries on the map.")
             );
 
         vis.titleEl = vis.infoDiv.selectAll("h3.mode-title")
@@ -268,7 +268,37 @@ class GlobalMapVis {
                 .style("line-height","1.5")
                 .style("color","#374151"));
 
-        // todo region summary panel maybe?
+        // region summary panel
+        vis.tableEl = vis.infoDiv.selectAll("table.region-table")
+            .data([0])
+            .join(enter => enter.append("xhtml:table")
+                .attr("class","region-table")
+                .style("width","100%")
+                .style("margin","12px 0 0 0")
+                .style("border-collapse","collapse")
+                .style("font-size","12px")
+            );
+
+        const headerCols = ["Region","#","Mean Months","Median Months","Min","Max"];
+
+        vis.theadEl = vis.tableEl.selectAll("thead").data([0])
+            .join(enter => enter.append("xhtml:thead"));
+
+        vis.theadEl.selectAll("tr").data([0])
+            .join(enter => enter.append("xhtml:tr"))
+            .selectAll("th")
+            .data(headerCols)
+            .join(enter => enter.append("xhtml:th")
+                .style("text-align","left")
+                .style("font-weight","600")
+                .style("color","#111827")
+                .style("padding","6px 8px")
+                .style("border-bottom","1px solid #e5e7eb")
+                .text(d => d)
+            );
+
+        vis.tbodyEl = vis.tableEl.selectAll("tbody").data([0])
+            .join(enter => enter.append("xhtml:tbody"));
 
     }
 
@@ -295,13 +325,8 @@ class GlobalMapVis {
         vis.updateVis();
     }
 
-    /*
-     * The drawing function
-     */
     updateVis() {
         let vis = this;
-
-        // map to codes for topo
 
 
         const getColor = (feature) => {
@@ -348,11 +373,26 @@ class GlobalMapVis {
 
         countries = countriesEnter.merge(countries);
 
+        const featureRegion = (feature) => {
+            const iso3 = isoNumericToISO3[feature.id];
+            const row = iso3 && vis.dataByCountry[iso3];
+            return row ? row.region : null;
+        };
+        const baseOpacity = d => (!vis.focusedRegion || featureRegion(d) === vis.focusedRegion) ? 1 : 0.25;
+        // accentuate focused region
+        const baseStroke = d => {
+            const r = featureRegion(d);
+            if (vis.focusedRegion && r === vis.focusedRegion) return "#000";
+            return "#d1d5db";
+        };
+        const baseStrokeW = d => (!vis.focusedRegion || featureRegion(d) === vis.focusedRegion) ? 1 : 0.5;
+
         countries
             .attr("d", vis.path)
             .style("fill", getColor)
-            .attr("stroke", "#fff")
-            .attr("stroke-width", 0.5);
+            .style("opacity", baseOpacity)
+            .attr("stroke", baseStroke)
+            .attr("stroke-width", baseStrokeW);
 
 
         // mouseover is dynamic based on which mode is selected to prevent data overload for viewer
@@ -397,11 +437,12 @@ class GlobalMapVis {
             })
             .on('mouseout', function(event, d) {
                 d3.select(this)
-                    .attr('stroke-width', '0.5px')
-                    .attr('stroke', '#fff');
+                    .attr('stroke', baseStroke(d))
+                    .attr('stroke-width', baseStrokeW(d));
 
                 vis.tooltip.style("opacity", 0);
             });
+
 
         countries.exit().remove();
 
@@ -469,6 +510,62 @@ class GlobalMapVis {
         vis.titleEl.text(this.getTakeawayTitle());
         vis.paraEl.text(this.getTakeawayText());
 
+        // table
+
+        const stats = this.computeRegionStats();
+        const fmtInt = d3.format("d");
+        const fmt1   = d => isNaN(d) ? "—" : d3.format(".1f")(d);
+
+        const rows = vis.tbodyEl.selectAll("tr")
+            .data(stats, d => d.region);
+
+        vis.clearBtn = vis.infoDiv.selectAll("button.clear-focus")
+            .data([0])
+            .join(enter => enter.append("xhtml:button")
+                .attr("class","clear-focus")
+                .style("margin","8px 0 0 0")
+                .style("padding","4px 8px")
+                .style("font-size","12px")
+                .style("border","1px solid #e5e7eb")
+                .style("border-radius","6px")
+                .style("background","#f8fafc")
+                .style("cursor","pointer")
+                .text("Clear region focus")
+                .on("click", () => this.clearFocus())
+            );
+
+        const rowsEnter = rows.enter()
+            .append("xhtml:tr")
+            .style("cursor","pointer")
+            .on("click", (event, d) => this.focusByRegion(d.region));
+
+        rowsEnter.merge(rows)
+            .style("background-color", d => d.region === this.focusedRegion ? "#eef2ff" : null);
+
+        rows.exit().remove();
+
+        const cols = [
+            d => d.region,
+            d => fmtInt(d.n),
+            d => fmt1(d.mean),
+            d => fmt1(d.median),
+            d => fmt1(d.min),
+            d => fmt1(d.max)
+        ];
+
+        const cells = rowsEnter.merge(rows).selectAll("td")
+            .data(d => cols.map(f => f(d)));
+
+        cells.enter()
+            .append("xhtml:td")
+            .style("padding","6px 8px")
+            .style("border-bottom","1px solid #f1f5f9")
+            .style("color","#374151")
+            .merge(cells)
+            .text(d => d);
+
+        cells.exit().remove();
+
 
     }
 
@@ -507,6 +604,31 @@ class GlobalMapVis {
     clearFocus() {
         this.focusedRegion = null;
         this.updateVis();
+    }
+
+
+    // avg helper
+    computeRegionStats() {
+        const key = this.currentMetric;
+
+        const grouped = d3.rollups(
+            this.data.filter(d => d[key] != null),
+            v => {
+                const vals = v.map(d => +d[key]).sort(d3.ascending);
+                return {
+                    n: vals.length,
+                    mean: d3.mean(vals),
+                    median: d3.median(vals),
+                    min: d3.min(vals),
+                    max: d3.max(vals)
+                };
+            },
+            d => d.region
+        );
+
+        const rows = grouped.map(([region, s]) => ({ region, ...s }));
+        rows.sort((a, b) => d3.ascending(a.region, b.region));
+        return rows;
     }
 
     // toggle mode change
