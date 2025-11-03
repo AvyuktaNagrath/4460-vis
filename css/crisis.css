@@ -78,3 +78,74 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     z-index: 999; /* Ensure it appears on top */
 }
+
+#vis-ak7 {
+    overflow: visible;
+}
+
+#vis-ak7 .timeline-axis path,
+#vis-ak7 .timeline-axis line {
+    stroke: #333;
+    stroke-width: 2px;
+}
+
+#vis-ak7 .timeline-axis .tick text {
+    font-size: 0.9em;
+    color: #555;
+}
+
+#vis-ak7 .event-group {
+    cursor: pointer;
+}
+
+#vis-ak7 .event-line {
+    stroke: #555;
+    stroke-width: 2px;
+}
+
+#vis-ak7 .event-axis-point {
+    stroke: #333;
+    stroke-width: 1.5px;
+}
+
+#vis-ak7 .event-label {
+    font-size: 0.9em;
+    font-weight: 600;
+    text-anchor: middle;
+    fill: #333;
+    pointer-events: none;
+}
+
+#tooltip {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 5px;
+    pointer-events: none; /* This is critical */
+    opacity: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    max-width: 280px;
+    font-size: 0.9em;
+    line-height: 1.4;
+    transition: opacity 0.2s, top 0.2s, left 0.2s;
+    z-index: 1000;
+}
+
+#tooltip h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.1em;
+    color: #000;
+}
+
+#tooltip .type {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+#tooltip p {
+    margin: 0;
+    color: #333;
+}
