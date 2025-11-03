@@ -11,37 +11,45 @@ class GlobalMapVis {
     initVis() {
         let vis = this;
 
-        // Get the SVG element (already exists in HTML)
         vis.svg = d3.select("#" + vis.parentElement);
 
-        // Get viewBox dimensions
         const viewBox = vis.svg.attr("viewBox").split(" ");
         vis.width = +viewBox[2];
         vis.height = +viewBox[3];
 
-        // Get the plot area group
         vis.plotArea = vis.svg.select(".plot-area");
 
-        // Create map projection (Mercator for rectangular world map)
         vis.projection = d3.geoMercator()
             .scale(150)
             .translate([vis.width / 2, vis.height / 1.5]);
 
         vis.path = d3.geoPath().projection(vis.projection);
 
-        // Color scales using D3 built-in schemes
         vis.colorSequential = d3.scaleThreshold()
             .domain([3, 6, 9, 12, 18, 24, 36])
-            .range(d3.schemeBlues[8]);
+            .range(d3.schemeRdYlGn[8].reverse());
 
         vis.colorDiverging = d3.scaleThreshold()
-            .domain([-36, -24, -18, -12, -9, -6, -3, 0, 3, 6, 9, 12, 18, 24, 36])
-            .range(d3.schemeRdBu[11]);
+            .domain([-3, 0, 3, 6, 9, 12, 15, 18, 21, 24])
+            .range([
+                '#dc2626',
+                '#f87171',
+                '#84cc16',
+                '#84cc16',
+                '#65a30d',
+                '#65a30d',
+                '#4d7c0f',
+                '#4d7c0f',
+                '#3f6212',
+                '#3f6212',
+                '#365314'
+            ]);
 
         vis.noRecoveryColor = "#e5e7eb";
         vis.noDataColor = "#f3f4f6";
 
-        // Create tooltip
+
+        // toggle buttons
         vis.tooltip = d3.select("body").append('div')
             .attr('class', "tooltip")
             .attr('id', 'mapTooltip')
@@ -69,7 +77,6 @@ class GlobalMapVis {
                 .on("click", function() {
                     vis.onModeChange(mode.id);
 
-                    // Update visual state of buttons
                     vis.toggleGroup.selectAll(".toggle-button rect")
                         .attr("fill", "#e5e7eb")
                         .attr("stroke", "#9ca3af");
@@ -105,13 +112,12 @@ class GlobalMapVis {
                 .text(mode.label);
         });
 
-        // Load TopoJSON world data
+        // topo map loading
         d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(world => {
             vis.countries = topojson.feature(world, world.objects.countries).features;
 
             console.log("Loaded world map:", vis.countries);
 
-            // Create lookup for our recovery data by ISO3
             vis.dataByCountry = {};
             vis.data.forEach(d => {
                 vis.dataByCountry[d.iso3] = d;
@@ -120,16 +126,78 @@ class GlobalMapVis {
             vis.wrangleData();
         });
 
-        // TODO: Create legend
-        // TODO: Create toggle buttons
+        // legend
+        vis.legendGroup = vis.svg.append("g")
+            .attr("class", "legend")
+            .attr("transform", `translate(20, ${vis.height - 80})`);
+
+        vis.legendTitle = vis.legendGroup.append("text")
+            .attr("x", 0)
+            .attr("y", -10)
+            .attr("font-size", "12px")
+            .attr("font-weight", "600")
+            .text("Recovery Time (months)");
+
+        const legendWidth = 300;
+        const legendHeight = 20;
+        const numBins = 8;
+        const binWidth = legendWidth / numBins;
+
+        vis.legendRects = vis.legendGroup.selectAll(".legend-rect")
+            .data(d3.range(numBins))
+            .enter()
+            .append("rect")
+            .attr("class", "legend-rect")
+            .attr("x", (d, i) => i * binWidth)
+            .attr("y", 0)
+            .attr("width", binWidth)
+            .attr("height", legendHeight)
+            .attr("fill", (d, i) => vis.colorSequential.range()[i]);
+
+        vis.legendScale = d3.scaleLinear()
+            .domain([0, 36])
+            .range([0, legendWidth]);
+
+        vis.legendAxis = d3.axisBottom(vis.legendScale)
+            .tickValues([0, 3, 6, 9, 12, 18, 24, 36])
+            .tickFormat(d => d + "m");
+
+        vis.legendAxisGroup = vis.legendGroup.append("g")
+            .attr("transform", `translate(0, ${legendHeight})`)
+            .call(vis.legendAxis);
         // TODO: Create takeaway box
         // TODO: Create region summary panel
     }
 
+    /*
+     * Data wrangling
+     */
+    wrangleData() {
+        let vis = this;
+
+        if (!vis.countries) return;
+
+        let metricKey;
+        if (vis.currentMode === 'market') {
+            metricKey = 'mkt_recovery_months';
+        } else if (vis.currentMode === 'gdp') {
+            metricKey = 'gdp_recovery_months';
+        } else {
+            metricKey = 'lead_months';
+        }
+
+        vis.currentMetric = metricKey;
+        vis.displayData = vis.countries;
+
+        vis.updateVis();
+    }
+
+    /*
+     * The drawing function
+     */
     updateVis() {
         let vis = this;
 
-        // ISO numeric code to ISO3 mapping for our countries
         const isoNumericToISO3 = {
             '840': 'USA',
             '124': 'CAN',
@@ -152,7 +220,6 @@ class GlobalMapVis {
             '032': 'ARG'
         };
 
-        // Helper function to get color for a country
         const getColor = (feature) => {
             const countryId = feature.id;
             const iso3 = isoNumericToISO3[countryId];
@@ -175,7 +242,6 @@ class GlobalMapVis {
             }
         };
 
-        // Helper to format dates
         const formatDate = (dateStr, isGDP = false) => {
             if (!dateStr) return 'N/A';
             const date = new Date(dateStr);
@@ -188,16 +254,13 @@ class GlobalMapVis {
             }
         };
 
-        // Draw countries with enter-update-exit pattern
         let countries = vis.plotArea.selectAll(".country")
             .data(vis.displayData);
 
-        // Enter
         let countriesEnter = countries.enter()
             .append("path")
             .attr("class", "country");
 
-        // Merge and update
         countries = countriesEnter.merge(countries);
 
         countries
@@ -206,7 +269,6 @@ class GlobalMapVis {
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5);
 
-        // Add event handlers
         countries
             .on('click', function(event, d) {
                 console.log("CLICK WORKS!", d);
@@ -252,33 +314,66 @@ class GlobalMapVis {
                     .html(``);
             });
 
-        // Exit
         countries.exit().remove();
-    }
 
-    /*
-     * Data wrangling
-     */
-    wrangleData() {
-        let vis = this;
+        // legend updates
+        if (vis.currentMode === 'lead') {
+            vis.legendTitle.text("Lead Time (months)");
 
-        // Wait until countries are loaded
-        if (!vis.countries) return;
+            const numBins = 11;
+            const binWidth = 300 / numBins;
 
-        // Get current metric based on mode
-        let metricKey;
-        if (vis.currentMode === 'market') {
-            metricKey = 'mkt_recovery_months';
-        } else if (vis.currentMode === 'gdp') {
-            metricKey = 'gdp_recovery_months';
+            const legendData = vis.colorDiverging.range();
+
+            const rects = vis.legendGroup.selectAll(".legend-rect")
+                .data(legendData);
+
+            rects.enter()
+                .append("rect")
+                .attr("class", "legend-rect")
+                .merge(rects)
+                .attr("x", (d, i) => i * binWidth)
+                .attr("y", 0)
+                .attr("width", binWidth)
+                .attr("height", 20)
+                .attr("fill", d => d);
+
+            rects.exit().remove();
+
+            vis.legendScale.domain([-3, 24]);
+            vis.legendAxis.tickValues([-3, 0, 3, 6, 9, 12, 15, 18, 21, 24])
+                .tickFormat(d => d + "m");
+
         } else {
-            metricKey = 'lead_months';
+            const modeLabel = vis.currentMode === 'market' ? 'Market' : 'GDP';
+            vis.legendTitle.text(`${modeLabel} Recovery Time (months)`);
+
+            const numBins = 8;
+            const binWidth = 300 / numBins;
+
+            const legendData = vis.colorSequential.range();
+
+            const rects = vis.legendGroup.selectAll(".legend-rect")
+                .data(legendData);
+
+            rects.enter()
+                .append("rect")
+                .attr("class", "legend-rect")
+                .merge(rects)
+                .attr("x", (d, i) => i * binWidth)
+                .attr("y", 0)
+                .attr("width", binWidth)
+                .attr("height", 20)
+                .attr("fill", d => d);
+
+            rects.exit().remove();
+
+            vis.legendScale.domain([0, 36]);
+            vis.legendAxis.tickValues([0, 3, 6, 9, 12, 18, 24, 36])
+                .tickFormat(d => d + "m");
         }
 
-        vis.currentMetric = metricKey;
-        vis.displayData = vis.countries;
-
-        vis.updateVis();
+        vis.legendAxisGroup.call(vis.legendAxis);
     }
 
     /*
