@@ -47,6 +47,64 @@ class GlobalMapVis {
             .attr('id', 'mapTooltip')
             .style("opacity", 0);
 
+        vis.toggleGroup = vis.svg.append("g")
+            .attr("class", "mode-toggle")
+            .attr("transform", "translate(20, 20)");
+
+        const modes = [
+            { id: 'market', label: 'Market Recovery' },
+            { id: 'gdp', label: 'GDP Recovery' },
+            { id: 'lead', label: 'Lead (Market - GDP)' }
+        ];
+
+        const buttonWidth = 150;
+        const buttonHeight = 35;
+        const buttonSpacing = 5;
+
+        modes.forEach((mode, i) => {
+            const button = vis.toggleGroup.append("g")
+                .attr("class", "toggle-button")
+                .attr("transform", `translate(${i * (buttonWidth + buttonSpacing)}, 0)`)
+                .style("cursor", "pointer")
+                .on("click", function() {
+                    vis.onModeChange(mode.id);
+
+                    // Update visual state of buttons
+                    vis.toggleGroup.selectAll(".toggle-button rect")
+                        .attr("fill", "#e5e7eb")
+                        .attr("stroke", "#9ca3af");
+
+                    d3.select(this).select("rect")
+                        .attr("fill", "#3b82f6")
+                        .attr("stroke", "#2563eb");
+
+                    vis.toggleGroup.selectAll(".toggle-button text")
+                        .attr("fill", "#374151");
+
+                    d3.select(this).select("text")
+                        .attr("fill", "white");
+                });
+
+            button.append("rect")
+                .attr("width", buttonWidth)
+                .attr("height", buttonHeight)
+                .attr("rx", 6)
+                .attr("fill", mode.id === 'gdp' ? "#3b82f6" : "#e5e7eb")
+                .attr("stroke", mode.id === 'gdp' ? "#2563eb" : "#9ca3af")
+                .attr("stroke-width", 2);
+
+            button.append("text")
+                .attr("x", buttonWidth / 2)
+                .attr("y", buttonHeight / 2)
+                .attr("text-anchor", "middle")
+                .attr("dominant-baseline", "middle")
+                .attr("fill", mode.id === 'gdp' ? "white" : "#374151")
+                .attr("font-size", "14px")
+                .attr("font-weight", "500")
+                .style("pointer-events", "none")
+                .text(mode.label);
+        });
+
         // Load TopoJSON world data
         d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(world => {
             vis.countries = topojson.feature(world, world.objects.countries).features;
