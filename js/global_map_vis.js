@@ -52,8 +52,22 @@ class GlobalMapVis {
         vis.noDataColor = "#f3f4f6";
 
 
-        // use same tooltip styling as rest of proj
-        vis.tooltip = d3.select("#tooltip");
+        // changed tooltip to just copy other styles because merge broke it for some reason
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "tooltip")
+            .attr('id', 'mapTooltip')
+            .style("position", "absolute")
+            .style("text-align", "center")
+            .style("padding", "8px 12px")
+            .style("font-size", "12px")
+            .style("background", "#2d3748")
+            .style("color", "white")
+            .style("border-radius", "6px")
+            .style("pointer-events", "none")
+            .style("opacity", "0")
+            .style("transition", "opacity 0.2s ease-in-out")
+            .style("box-shadow", "0 2px 8px rgba(0,0,0,0.15)")
+            .style("z-index", "999");
 
         // toggle buttons
         vis.toggleGroup = vis.svg.append("g")
@@ -61,8 +75,8 @@ class GlobalMapVis {
             .attr("transform", "translate(20, 20)");
 
         const modes = [
-            { id: 'market', label: 'Market Recovery' },
             { id: 'gdp', label: 'GDP Recovery' },
+            { id: 'market', label: 'Market Recovery' },
             { id: 'lead', label: 'Lead (Market - GDP)' }
         ];
 
