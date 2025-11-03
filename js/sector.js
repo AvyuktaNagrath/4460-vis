@@ -140,7 +140,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // hover tooltip
         const totalValue = d3.sum(data, d => d.MarketCap);
-        const tooltip = d3.select("#tooltip");
+        const tooltip = d3.select("#tooltip")
+            .style("position", "absolute")
+            .style("text-align", "center")
+            .style("padding", "8px 12px")
+            .style("font-size", "12px")
+            .style("background", "#2d3748")
+            .style("color", "white")
+            .style("border-radius", "6px")
+            .style("pointer-events", "none")
+            .style("opacity", "0")
+            .style("transition", "opacity 0.2s ease-in-out")
+            .style("box-shadow", "0 2px 8px rgba(0,0,0,0.15)")
+            .style("z-index", "999");
 
         cells.select("rect")
             .on("mousemove", (event, d) => {
