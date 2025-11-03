@@ -123,10 +123,12 @@ function createVis(data) {
             mkt_crash_date: mktCrash.date,
             mkt_crash_value: mktCrash.value,
             mkt_recovery_date: mktRecovery?.date,
+            mkt_recovery_value: mktRecovery?.value,
             mkt_recovery_months: mktRecoveryMonths,
             gdp_crash_date: gdpCrash.date,
             gdp_crash_value: gdpCrash.value,
             gdp_recovery_date: gdpRecovery?.date,
+            gdp_recovery_value: gdpRecovery?.value,
             gdp_recovery_months: gdpRecoveryMonths,
             lead_months: leadMonths
         };

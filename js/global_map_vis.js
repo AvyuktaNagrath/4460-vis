@@ -19,6 +19,8 @@ class GlobalMapVis {
 
         vis.plotArea = vis.svg.select(".plot-area");
 
+
+        // using merctor for rectangular
         vis.projection = d3.geoMercator()
             .scale(150)
             .translate([vis.width / 2, vis.height / 1.5]);
@@ -29,6 +31,7 @@ class GlobalMapVis {
             .domain([3, 6, 9, 12, 18, 24, 36])
             .range(d3.schemeRdYlGn[8].reverse());
 
+        // had to make own scale
         vis.colorDiverging = d3.scaleThreshold()
             .domain([-3, 0, 3, 6, 9, 12, 15, 18, 21, 24])
             .range([
@@ -37,7 +40,7 @@ class GlobalMapVis {
                 '#84cc16',
                 '#84cc16',
                 '#65a30d',
-                '#65a30d',
+                '#67a510',
                 '#4d7c0f',
                 '#4d7c0f',
                 '#3f6212',
@@ -49,12 +52,10 @@ class GlobalMapVis {
         vis.noDataColor = "#f3f4f6";
 
 
-        // toggle buttons
-        vis.tooltip = d3.select("body").append('div')
-            .attr('class', "tooltip")
-            .attr('id', 'mapTooltip')
-            .style("opacity", 0);
+        // use same tooltip styling as rest of proj
+        vis.tooltip = d3.select("#tooltip");
 
+        // toggle buttons
         vis.toggleGroup = vis.svg.append("g")
             .attr("class", "mode-toggle")
             .attr("transform", "translate(20, 20)");
@@ -165,8 +166,9 @@ class GlobalMapVis {
         vis.legendAxisGroup = vis.legendGroup.append("g")
             .attr("transform", `translate(0, ${legendHeight})`)
             .call(vis.legendAxis);
-        // TODO: Create takeaway box
-        // TODO: Create region summary panel
+
+        // todo takeaway box
+        // todo region summary panel maybe?
     }
 
     /*
@@ -198,6 +200,7 @@ class GlobalMapVis {
     updateVis() {
         let vis = this;
 
+        // map to codes for topo
         const isoNumericToISO3 = {
             '840': 'USA',
             '124': 'CAN',
@@ -242,6 +245,7 @@ class GlobalMapVis {
             }
         };
 
+        // map quarteres to dates
         const formatDate = (dateStr, isGDP = false) => {
             if (!dateStr) return 'N/A';
             const date = new Date(dateStr);
@@ -269,54 +273,59 @@ class GlobalMapVis {
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5);
 
-        countries
-            .on('click', function(event, d) {
-                console.log("CLICK WORKS!", d);
-            })
-            .on('mouseover', function(event, d) {
-                console.log("Mouseover triggered!");
 
+        // mouseover is dynamic based on which mode is selected to prevent data overload for viewer
+        countries
+            .on('mouseover', function(event, d) {
                 const countryId = d.id;
                 const iso3 = isoNumericToISO3[countryId];
-
-                console.log("Country ID:", countryId, "ISO3:", iso3);
 
                 if (iso3 && vis.dataByCountry[iso3]) {
                     const data = vis.dataByCountry[iso3];
 
                     d3.select(this)
                         .attr('stroke-width', '2px')
-                        .attr('stroke', 'black');
+                        .attr('stroke', '#333');
+
+                    let tooltipHTML = `<strong>${data.country}</strong><br>`;
+
+                    if (vis.currentMode === 'market') {
+                        tooltipHTML += `Crash: ${formatDate(data.mkt_crash_date)} (${d3.format(",")(data.mkt_crash_value)})<br>`;
+                        tooltipHTML += `Recovery: ${formatDate(data.mkt_recovery_date)} (${data.mkt_recovery_value ? d3.format(",")(data.mkt_recovery_value) : 'N/A'})<br>`;
+                        tooltipHTML += `Duration: ${data.mkt_recovery_months || 'N/A'} months`;
+                    } else if (vis.currentMode === 'gdp') {
+                        tooltipHTML += `Crash: ${formatDate(data.gdp_crash_date, true)} (${data.gdp_crash_value ? d3.format(",")(data.gdp_crash_value) : 'N/A'})<br>`;
+                        tooltipHTML += `Recovery: ${formatDate(data.gdp_recovery_date, true)} (${data.gdp_recovery_value ? d3.format(",")(data.gdp_recovery_value) : 'N/A'})<br>`;
+                        tooltipHTML += `Duration: ${data.gdp_recovery_months || 'N/A'} months`;
+                    } else {
+                        tooltipHTML += `Market Recovery: ${data.mkt_recovery_months || 'N/A'} months<br>`;
+                        tooltipHTML += `GDP Recovery: ${data.gdp_recovery_months || 'N/A'} months<br>`;
+                        tooltipHTML += `Lead: ${data.lead_months !== null ? data.lead_months + ' months' : 'N/A'}`;
+                    }
 
                     vis.tooltip
                         .style("opacity", 1)
-                        .style("left", event.pageX + 20 + "px")
-                        .style("top", event.pageY + "px")
-                        .html(`
-                        <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                            <h3>${data.country}</h3>
-                            <h4>Market: bottom ${formatDate(data.mkt_crash_date)} → recovered ${formatDate(data.mkt_recovery_date)} (${data.mkt_recovery_months || 'N/A'}m)</h4>
-                            <h4>GDP: bottom ${formatDate(data.gdp_crash_date, true)} → recovered ${formatDate(data.gdp_recovery_date, true)} (${data.gdp_recovery_months || 'N/A'}m)</h4>
-                            <h4>Lead: ${data.lead_months !== null ? data.lead_months + 'm' : 'N/A'}</h4>
-                        </div>
-                    `);
+                        .html(tooltipHTML);
                 }
+            })
+            // to follow the cursor
+            .on('mousemove', function(event, d) {
+                vis.tooltip
+                    .style("left", event.pageX + 12 + "px")
+                    .style("top", event.pageY - 28 + "px");
             })
             .on('mouseout', function(event, d) {
                 d3.select(this)
                     .attr('stroke-width', '0.5px')
                     .attr('stroke', '#fff');
 
-                vis.tooltip
-                    .style("opacity", 0)
-                    .style("left", 0)
-                    .style("top", 0)
-                    .html(``);
+                vis.tooltip.style("opacity", 0);
             });
 
         countries.exit().remove();
 
         // legend updates
+        // sepcial case for lead since diff scale
         if (vis.currentMode === 'lead') {
             vis.legendTitle.text("Lead Time (months)");
 
@@ -377,7 +386,7 @@ class GlobalMapVis {
     }
 
     /*
-     * Handle mode change from toggle
+     * mode change from toggle
      */
     onModeChange(newMode) {
         let vis = this;
