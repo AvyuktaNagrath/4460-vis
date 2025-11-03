@@ -1,9 +1,33 @@
+const isoNumericToISO3 = {
+    '840': 'USA',
+    '124': 'CAN',
+    '826': 'GBR',
+    '276': 'DEU',
+    '250': 'FRA',
+    '380': 'ITA',
+    '392': 'JPN',
+    '036': 'AUS',
+    '554': 'NZL',
+    '410': 'KOR',
+    '360': 'IDN',
+    '076': 'BRA',
+    '484': 'MEX',
+    '643': 'RUS',
+    '682': 'SAU',
+    '710': 'ZAF',
+    '792': 'TUR',
+    '356': 'IND',
+    '032': 'ARG'
+};
+
 class GlobalMapVis {
 
     constructor(_parentElement, _data) {
         this.parentElement = _parentElement;
         this.data = _data;
         this.currentMode = 'gdp'; // 'gdp' 'market' 'lead' are the three modes to toggle
+
+        this.focusedRegion = null; // for country select
 
         this.initVis();
     }
@@ -181,8 +205,71 @@ class GlobalMapVis {
             .attr("transform", `translate(0, ${legendHeight})`)
             .call(vis.legendAxis);
 
-        // todo takeaway box
+
+        // init takeaway box
+        // just using html inject because text wouldn't wrap properly otherwise
+        vis.infoSvg = d3.select("#vis-an6-info");
+        const viewBox2 = vis.infoSvg.attr("viewBox").split(" ");
+        vis.infoW = +viewBox2[2];
+        vis.infoH = +viewBox2[3];
+
+        vis.infoFO = vis.infoSvg.selectAll("foreignObject.info")
+            .data([0])
+            .join(enter => enter.append("foreignObject")
+                .attr("class","info")
+                .attr("x", 0).attr("y", 0)
+                .attr("width", vis.infoW)
+                .attr("height", vis.infoH));
+
+        vis.infoDiv = d3.select(vis.infoFO.node())
+            .selectAll("div")
+            .data([0])
+            .join(enter => enter.append("xhtml:div")
+                .style("padding","16px")
+                .style("font-family","Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"));
+
+        vis.panelTitleEl = vis.infoDiv.selectAll("h2.frame-title")
+            .data([0])
+            .join(enter => enter.append("xhtml:h2")
+                .attr("class", "frame-title")
+                .style("margin", "0 0 6px 0")
+                .style("font-size", "18px")
+                .style("font-weight", "700")
+                .style("color", "#0f172a")
+                .text("Global Recovery Comparison - GDP vs. Markets")
+            );
+
+        vis.helperEl = vis.infoDiv.selectAll("p.frame-helper")
+            .data([0])
+            .join(enter => enter.append("xhtml:p")
+                .attr("class", "frame-helper")
+                .style("margin", "0 0 10px 0")
+                .style("font-size", "14px")
+                .style("line-height", "1.35")
+                .style("color", "#475569")
+                .text("Hover any country to see specific stats. Switch modes above to compare GDP, Market, and the difference between the two")
+            );
+
+        vis.titleEl = vis.infoDiv.selectAll("h3.mode-title")
+            .data([0])
+            .join(enter => enter.append("xhtml:h3")
+                .attr("class","mode-title")
+                .style("margin","0 0 8px 0")
+                .style("font-size","16px")
+                .style("font-weight","600")
+                .style("color","#111827"));
+
+        vis.paraEl = vis.infoDiv.selectAll("p.mode-para")
+            .data([0])
+            .join(enter => enter.append("xhtml:p")
+                .attr("class","mode-para")
+                .style("margin","0")
+                .style("font-size","12px")
+                .style("line-height","1.5")
+                .style("color","#374151"));
+
         // todo region summary panel maybe?
+
     }
 
     /*
@@ -215,27 +302,7 @@ class GlobalMapVis {
         let vis = this;
 
         // map to codes for topo
-        const isoNumericToISO3 = {
-            '840': 'USA',
-            '124': 'CAN',
-            '826': 'GBR',
-            '276': 'DEU',
-            '250': 'FRA',
-            '380': 'ITA',
-            '392': 'JPN',
-            '036': 'AUS',
-            '554': 'NZL',
-            '410': 'KOR',
-            '360': 'IDN',
-            '076': 'BRA',
-            '484': 'MEX',
-            '643': 'RUS',
-            '682': 'SAU',
-            '710': 'ZAF',
-            '792': 'TUR',
-            '356': 'IND',
-            '032': 'ARG'
-        };
+
 
         const getColor = (feature) => {
             const countryId = feature.id;
@@ -397,11 +464,52 @@ class GlobalMapVis {
         }
 
         vis.legendAxisGroup.call(vis.legendAxis);
+
+        // takeaway paragraphs
+        vis.titleEl.text(this.getTakeawayTitle());
+        vis.paraEl.text(this.getTakeawayText());
+
+
     }
 
-    /*
-     * mode change from toggle
-     */
+    //text getters for cleanliness
+
+    getTakeawayTitle() {
+        if (this.currentMode === 'market') {
+            return "Market Recovery";
+        }
+        else if (this.currentMode === 'gdp'){
+            return "GDP Recovery";
+        }
+        return "Lead: Market – GDP";
+    }
+    getTakeawayText() {
+        if (this.currentMode === 'market'){
+            return "This map shows how many months it took each country's equity market to recover back to its pre COVID crash baseline. We measure recovery as the first period where the index returns to its December 2019 level and then stays above that level for at least one additional observation. Market index history for each country was fetched individually from Stooq, then combined into a standardized structure. The major insight is that market recoveries were generally much faster, and treated the shock as temporary far earlier than GDP did, even though fundamentals had not stabilized yet.";
+        }
+        else if (this.currentMode === 'gdp'){
+            return "This map shows how many months it took each country's real GDP to recover to its pre COVID crash baseline. We use quarterly OECD GDP, except for a few gaps (for example Russia) which did not meaningfully affect this study’s 2020 centered window. China was excluded due to missing compatible baseline structure and because it would behave as its own systemic outlier. The major insight is that GDP recovery was structurally slower and reflected real output healing, not investor expectations, and this lag is what creates the divergence pattern we are focusing on.";
+        }
+
+        return "This map shows the difference between how fast markets recovered and how fast GDP recovered, measured in months (GDP months minus Market months). The lead is computed purely as subtraction of the two recovery durations. India and Indonesia were the only cases where markets lagged behind GDP. In nearly every other country, markets recovered first, and in South Africa the lead reached as extreme as 21 months. The major insight is that lead is the most direct visualization of how detached market forward pricing was relative to real world economic repair.";
+    }
+
+
+
+
+
+
+    // focus helpers
+    focusByRegion(region) {
+        this.focusedRegion = region;
+        this.updateVis();
+    }
+    clearFocus() {
+        this.focusedRegion = null;
+        this.updateVis();
+    }
+
+    // toggle mode change
     onModeChange(newMode) {
         let vis = this;
 
