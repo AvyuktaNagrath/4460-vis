@@ -367,3 +367,7 @@ body {
         transform: none;
     }
 }
+
+#vis-an6 .country {
+    pointer-events: auto;
+}
