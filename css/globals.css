@@ -196,17 +196,19 @@ body {
 
 .info-card {
     position: absolute;
-    top: 2rem;
+    top: 17rem;
     right: 3rem;
-    background: rgba(255,255,255,.98);
+    background: rgba(255, 255, 255, 0.98);
     border: 1px solid var(--line);
-    border-radius: .6rem;
-    padding: 1rem 1.25rem;
-    max-width: 20rem;
-    box-shadow: 0 6px 18px rgba(0,0,0,.08);
-    backdrop-filter: blur(8px);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    max-width: 17rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6px);
     z-index: 10;
     pointer-events: auto;
+    transform: scale(0.9);
+    transform-origin: bottom right;
 }
 
 .info-card h2 {
