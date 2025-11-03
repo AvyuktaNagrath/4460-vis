@@ -88,6 +88,7 @@
             .attr("width", x.bandwidth())
             .attr("height", y.bandwidth())
             .style("fill", d => myColor(d.PercentChange))
+            .attr("data-year", d => d.Year) // --- CHANGED ---
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave);
@@ -101,7 +102,8 @@
             .attr("y", d => y(d.Industry) + y.bandwidth() / 2)
             .attr("dy", ".35em")
             .style("fill", d => Math.abs(d.PercentChange) > 15 ? "white" : "#2d3748")
-            .text(d => d.PercentChange.toFixed(1) + "%");
+            .text(d => d.PercentChange.toFixed(1) + "%")
+            .attr("data-year", d => d.Year); // --- CHANGED ---
 
         const legendContainer = d3.select("#frame-5 .info-card");
 
@@ -161,35 +163,66 @@ const eventsData = [
         name: "Dot.com Bubble Burst",
         startDate: new Date("2000-03-10"),
         endDate: new Date("2003-04-01"),
-        type: "Financial",
+        type: "Economic",
         description: "Collapse of technology stock valuations after speculative growth.",
         yOffset: -40,
-        color: "#d62728"
+        color: "#d62728",
+        heatmap_key: "2001"
     },
     {
         name: "Great Recession",
         focusDate: new Date("2008-09-15"),
-        type: "Financial",
-        description: "Major financial crisis triggered by housing collapse.",
+        type: "Economic",
+        description: "Major financial crisis triggered by subprime mortgage market collapse.",
         yOffset: 40,
-        color: "#ff7f0e"
+        color: "#ff7f0e",
+        heatmap_key: ["2008", "2009"]
     },
+    /*
     {
         name: "European Debt Crisis",
         focusDate: new Date("2011-01-01"),
         type: "Economic",
-        description: "Crisis in sovereign debt of eurozone countries.",
+        description: "Crisis in sovereign debt of eurozone countries (e.g., Greece, Ireland).",
         yOffset: -40,
         color: "#1f77b4"
     },
     {
+        name: "Taper Tantrum",
+        focusDate: new Date("2013-05-22"),
+        type: "Financial",
+        description: "A surge in global bond yields after the US Federal Reserve indicated it might 'taper' its quantitative easing program.",
+        yOffset: 40,
+        color: "#9467bd"
+    },
+    {
+        name: "Brexit Referendum",
+        focusDate: new Date("2016-06-23"),
+        type: "Political/Economic",
+        description: "The UK voted to leave the European Union, causing significant market volatility and long-term trade uncertainty.",
+        yOffset: -40,
+        color: "#8c564b"
+    },
+    {
+        name: "US-China Trade War",
+        startDate: new Date("2018-07-06"),
+        endDate: new Date("2020-01-15"),
+        type: "Economic/Political",
+        description: "A period of escalating tariffs and trade barriers between the US and China, disrupting global supply chains.",
+        yOffset: 40,
+        color: "#e377c2"
+    },
+
+     */
+    {
         name: "COVID-19 Pandemic",
         startDate: new Date("2020-02-01"),
         endDate: new Date("2021-03-01"),
-        type: "Public Health",
+        type: "Health/Economic",
         description: "Global pandemic leading to widespread lockdowns and economic disruption.",
         yOffset: -60,
-        color: "#2ca02c"
+        color: "#2ca02c",
+        heatmap_key: "2020"
     },
     {
         name: "Inflation Shock",
@@ -198,7 +231,8 @@ const eventsData = [
         type: "Economic",
         description: "A global spike in inflation and energy prices, exacerbated by the Russian invasion of Ukraine and post-COVID supply issues.",
         yOffset: 40,
-        color: "#7f7f7f"
+        color: "#7f7f7f",
+        heatmap_key: "2022"
     }
 ];
 
@@ -235,8 +269,28 @@ function drawTimelineVis() {
         .attr("transform", `translate(0, ${axisYCenter})`)
         .call(xAxis);
 
+    // --- CHANGED ---
+    // Updated mouse handlers to control the heatmap
     const onMouseOver = function(event, d) {
         tooltip.style("opacity", 1);
+
+        const keys = d.heatmap_key;
+        if (keys) {
+            // Dim all heatmap elements
+            d3.selectAll("#vis-kz2 .cell, #vis-kz2 .cell-label")
+                .transition().duration(200)
+                .style("opacity", 0.15);
+
+            // Create a D3 selector for each key
+            const selector = (Array.isArray(keys) ? keys : [keys])
+                .map(key => `#vis-kz2 [data-year="${key}"]`)
+                .join(", ");
+
+            // Highlight the matching elements
+            d3.selectAll(selector)
+                .transition().duration(200)
+                .style("opacity", 1);
+        }
     };
 
     const onMouseMove = function(event, d) {
@@ -251,6 +305,11 @@ function drawTimelineVis() {
 
     const onMouseOut = function(event, d) {
         tooltip.style("opacity", 0);
+
+        // Restore all heatmap elements
+        d3.selectAll("#vis-kz2 .cell, #vis-kz2 .cell-label")
+            .transition().duration(200)
+            .style("opacity", 1);
     };
 
     const eventsGroup = mainGroup.append("g")

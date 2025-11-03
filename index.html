@@ -56,36 +56,6 @@
         </div>
     </section>
 
-    <section id="frame-2" class="frame frame--hook" aria-labelledby="f2-title">
-        <div class="hook-scroll-hint">Scroll horizontally →</div>
-        <div class="hook-scroll-container">
-            <div class="hook-phase step" data-step="market">
-                <div class="hook-content">
-                    <h2>This is the Market</h2>
-                    <p>The S&P 500 tracks what investors believe companies are worth. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-                </div>
-            </div>
-            <div class="hook-phase step" data-step="economy">
-                <div class="hook-content">
-                    <h2>This is the Economy</h2>
-                    <p>GDP measures real output. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-                </div>
-            </div>
-            <div class="hook-phase step" data-step="diverge">
-                <div class="hook-content">
-                    <h2>But They Diverge</h2>
-                    <p>During crises, markets recover months before the economy does. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                </div>
-            </div>
-        </div>
-        <div class="hook-vis-fixed">
-            <svg id="vis-hook-lines" class="vis-svg vis-svg--hero" viewBox="0 0 1440 810" role="img" aria-label="Intro GDP vs Market lines">
-                <g class="plot-area"></g>
-                <text class="placeholder" x="24" y="50">Hook lines placeholder</text>
-            </svg>
-        </div>
-    </section>
-
     <section id="frame-3" class="frame frame--pin frame--geo" aria-labelledby="f3-title">
         <div class="pin">
             <div class="vis-stage">
@@ -198,43 +168,6 @@
                     <button id="modal-close" class="btn btn--secondary">Close</button>
                     <button id="modal-goto" class="btn btn--primary">Go to Visualization</button>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="frame-8" class="frame frame--pin frame--explore" aria-labelledby="f8-title">
-        <div class="pin">
-            <div class="vis-stage">
-                <svg id="vis-explore-scatter" class="vis-svg" viewBox="0 0 1200 720" role="img" aria-label="Exploration scatter">
-                    <g class="plot-area"></g>
-                    <rect id="explore-brush" class="brush-rect" x="0" y="0" width="0" height="0" visibility="hidden"></rect>
-                    <text class="placeholder" x="24" y="40">Scatter: brush to select</text>
-                    <rect class="event-capture" x="0" y="0" width="1200" height="720" fill="transparent"></rect>
-                </svg>
-            </div>
-            <div class="hud hud--left">
-                <h2 id="f8-title">Find Your Balance</h2>
-                <label class="ctl">Crisis
-                    <select id="ctl-crisis">
-                        <option value="all">All</option>
-                        <option value="dotcom">Dot-com</option>
-                        <option value="gfc">2008</option>
-                        <option value="covid">2020</option>
-                        <option value="tightening">2022–23</option>
-                    </select>
-                </label>
-                <label class="ctl">Color by
-                    <select id="ctl-color">
-                        <option value="region">Region</option>
-                        <option value="crisisType">Crisis Type</option>
-                    </select>
-                </label>
-                <button id="ctl-reset" class="btn">Reset Brush</button>
-            </div>
-            <div class="hud hud--right" id="hud-stats">
-                <div class="stat">Selected: <span id="stat-count">0</span></div>
-                <div class="stat">Avg Vol: <span id="stat-vol">—</span></div>
-                <div class="stat">Med Recov: <span id="stat-rec">—</span></div>
             </div>
         </div>
     </section>
