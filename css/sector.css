@@ -1,6 +1,4 @@
-/* --------------------------
-   Layout of the sector frame
-   -------------------------- */
+/* Layout of sector frame */
 
 .frame--sector .vis-stage--twin {
     display: flex;
@@ -14,8 +12,8 @@
 }
 
 .frame--sector .panel {
-    flex: 1 1 460px;       /* try to keep each ~460px wide */
-    max-width: 520px;      /* don't let it stretch too huge */
+    flex: 1 1 460px;
+    max-width: 520px;
     background: #fff;
     border-radius: 0.75rem;
     box-shadow: 0 10px 24px rgba(0,0,0,0.03);
@@ -39,7 +37,6 @@
     padding: 1rem;
 }
 
-/* The dashed "card" for the svg */
 .frame--sector .svg-shell {
     background: #fbfcfd;
     border: 1px dashed #d1d5db;
@@ -47,34 +44,26 @@
     padding: 1rem;
 }
 
-/* --------------------------
-   SVG sizing / visibility
-   -------------------------- */
 
 .frame--sector .vis-svg {
     display: block;
-    /* we will explicitly set width/height in JS.
-       just make sure it doesn't get squished by flexbox */
     max-width: 100%;
     height: auto;
     overflow: visible;
     border-radius: 0.5rem;
     background: transparent;
     position: relative;
-    z-index: 10; /* sit above any weird overlay */
+    z-index: 10;
 }
 
-/* --------------------------
-   Text inside treemap tiles
-   -------------------------- */
+/* Text inside treemap tiles */
 
 .cell-label {
     font-size: 10px;
     font-weight: 500;
-    fill: #111;          /* dark text so it's readable */
+    fill: #111;
     pointer-events: none;
     text-shadow:
             0 1px 2px rgba(255,255,255,0.6),
             0 -1px 2px rgba(255,255,255,0.4);
 }
-

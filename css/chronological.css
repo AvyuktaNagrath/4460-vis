@@ -1,3 +1,4 @@
+
 .frame--chrono .pin {
     display: flex;
     flex-direction: column;
@@ -5,6 +6,7 @@
     justify-content: center;
 }
 
+/*
 .frame--chrono .vis-header,
 .frame--chrono .vis-stage {
     width: 100%;
@@ -18,6 +20,23 @@
     margin: 0 auto;
     padding: 20px 20px 10px 20px;
     box-sizing: border-box;
+}*/
+
+.frame--chrono .vis-header {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.frame--chrono .vis-stage {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 .vis-header h2 {
@@ -136,3 +155,9 @@
     color: #111827;
 }
 
+.frame--chrono .vis-svg {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    display: block;
+}
