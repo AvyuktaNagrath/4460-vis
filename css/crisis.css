@@ -1,11 +1,10 @@
-.frame--crisis .vis-svg--timeline {
-    max-height: 25vh;
-}
-
+.frame--crisis .vis-svg--timeline,
 .frame--crisis .vis-svg--heatmap {
-    max-height: 55vh;
+    width: 100%;
+    height: auto;
+    max-height: none; /* override shrink behavior */
 }
-
+n
 .frame--crisis .brush-rect {
     cursor: ew-resize;
 }
@@ -132,4 +131,30 @@
 #tooltip p {
     margin: 0;
     color: white !important;
+}
+
+.frame--crisis .hover-instructions {
+    position: absolute;
+    right: -15rem;
+    top: 1rem;
+    width: 260px;
+    z-index: 10;
+}
+
+.frame--crisis .info-card {
+    position: absolute;
+    right: 4rem;
+    top: 20rem;
+    width: 260px;
+    z-index: 10;
+}
+
+.frame--crisis .vis-stage {
+    margin-right: 300px;
+}
+
+#vis-ak7,
+#vis-kz2 {
+    width: 100% !important;
+    height: auto !important;
 }
