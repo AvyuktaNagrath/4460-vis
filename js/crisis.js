@@ -117,7 +117,7 @@
 
         const legendSvg = legendDiv.append("svg")
             .attr("id", "kz2-legend")
-            .attr("width", "100%")
+            .attr("width", "10H0%")
             .attr("height", 20)
             .style("display", "block")
             .style("margin-top", "4px");
@@ -255,8 +255,8 @@ function drawTimelineVis() {
     const onMouseMove = function(event, d) {
         tooltip.html(
             `<h3>${d.name}</h3>
-             <span>Type: ${d.type}</span>
-             <p>${d.description}</p>`
+             <span class="type" style="font-style: italic; color: #555;">Type: ${d.type}</span>
+             <p style="margin: 0; color: #333;">${d.description}</p>`
         )
             .style("left", (event.pageX + 15) + "px")
             .style("top", (event.pageY - 10) + "px");
@@ -285,6 +285,33 @@ function drawTimelineVis() {
         const g = d3.select(this);
         const y = d.yOffset;
         const color = d.color;
+
+        // --- NEW CODE: Add invisible hover box ---
+        const hoverPaddingY = 20;
+        const hoverPaddingX = 10;
+
+        if (d.focusDate) {
+            const xPos = x(d.focusDate);
+            g.append("rect")
+                .attr("x", xPos - (hoverPaddingX * 2)) // Center a 40px wide box
+                .attr("y", y > 0 ? 0 - hoverPaddingY : y - (hoverPaddingY * 2))
+                .attr("width", hoverPaddingX * 4)
+                .attr("height", Math.abs(y) + (hoverPaddingY * 3))
+                .attr("fill", "white")
+                .style("opacity", 0);
+        }
+        else if (d.startDate) {
+            const x1 = x(d.startDate);
+            const x2 = x(d.endDate);
+            g.append("rect")
+                .attr("x", x1 - hoverPaddingX)
+                .attr("y", y > 0 ? 0 - hoverPaddingY : y - (hoverPaddingY * 2))
+                .attr("width", (x2 - x1) + (hoverPaddingX * 2))
+                .attr("height", Math.abs(y) + (hoverPaddingY * 3))
+                .attr("fill", "white")
+                .style("opacity", 0);
+        }
+        // --- END NEW CODE ---
 
         if (d.focusDate) {
             const xPos = x(d.focusDate);
