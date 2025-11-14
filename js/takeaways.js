@@ -28,8 +28,8 @@
             body: `
               <p>
                 Financial markets typically recover before real economic activity does.
-                After every major downturn — the Dot-com Bust, the Great Recession, and COVID-19 —
-                equity indices surged months before GDP growth turned positive.
+                After every major downturn, market valuations rise months—sometimes years—before GDP growth begins to recover, 
+                while sector-level output often remains weak even after equity markets have already turned upward.
               </p>
               <p>
                 This lead-lag dynamic shows that markets price in future expectations rather
@@ -44,13 +44,15 @@
             title: 'Mix Cyclical and Defensive Sectors',
             body: `
               <p>
-                Sectoral imbalances widen during crises. Manufacturing and construction tend
-                to contract sharply, while finance, healthcare, and information services stay
-                resilient or recover faster.
+                Economic shocks affect sectors differently: 
+                manufacturing and construction typically contract sharply, while finance, healthcare, and information services remain more resilient.
               </p>
               <p>
-                A portfolio combining cyclical (tech, industrials) and defensive (healthcare,
-                utilities) sectors balances growth potential with stability across market cycles.
+                Combining cyclical sectors (tech, industrials) with defensive sectors (healthcare, utilities) 
+                helps balance growth opportunities with stability during downturns.
+              </p>
+              <p>
+                This mix reduces volatility across market cycles and creates a more robust long-term portfolio.
               </p>
             `,
             target: '#frame-6'
