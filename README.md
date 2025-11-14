@@ -14,7 +14,7 @@ The website guides the user through multiple perspectives, including long-term t
 ## Repository Structure
 css/ All styling files for each section of the story (our code)     
 data/ Cleaned and processed datasets used in visualizations   
-js/ JavaScript visualization logic (our code)
+js/ JavaScript visualization logic (our code)   
 index.html # Main HTML page (our code)   
 
 
