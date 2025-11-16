@@ -9,50 +9,64 @@
 
     const insightData = {
         geographic: {
-            title: 'Diversify by Region',
+            title: 'Markets Lead GDP Recovery Globally',
             body: `
               <p>
-                Recovery times vary greatly across regions. Developed economies like the U.S.
-                and Canada rebounded within months, while emerging markets took years to return
-                to pre-crisis output. 
+                The global heatmap showed markets recovered first in 17 out of 19 countries. 
+                Only India and Indonesia broke the pattern. South Africa had the most extreme 
+                case with markets leading GDP recovery by 21 months.
               </p>
               <p>
-                Diversifying across regions smooths volatility — markets in Asia or Europe may
-                lag or lead North America depending on crisis type and monetary policy timing.
+                This is a structural pattern, not random variation. Markets price future expectations. 
+                GDP measures current output. Recovery times varied by 18 months between countries, 
+                but stock markets anticipated recovery on similar timelines regardless of geography.
               </p>
             `,
             target: '#frame-3'
         },
         chronological: {
-            title: 'Time Rebalances After Recoveries',
+            title: 'Market Cap Diverges from Economic Reality',
             body: `
               <p>
-                Financial markets typically recover before real economic activity does.
-                After every major downturn, market valuations rise months—sometimes years—before GDP growth begins to recover, 
-                while sector-level output often remains weak even after equity markets have already turned upward.
+                The chronological chart tracked market cap as a percentage of GDP over 24 years. 
+                This ratio spiked during bubbles (dot-com, pre-2008) and crashed during crises, 
+                but always recovered faster than the underlying economy.
               </p>
               <p>
-                This lead-lag dynamic shows that markets price in future expectations rather
-                than current performance. Recognizing this helps investors avoid overreacting
-                to short-term shocks.
+                After 2008, markets rebounded by 2010 while GDP lagged into 2011 and 2012. The same 
+                pattern repeated in 2020. Markets lead because they price future earnings, not current conditions.
               </p>
             `,
             target: '#frame-4'
         },
-
-        sector: {
-            title: 'Mix Cyclical and Defensive Sectors',
+        crisis: {
+            title: 'Different Crises Hit Different Sectors',
             body: `
               <p>
-                Economic shocks affect sectors differently: 
-                manufacturing and construction typically contract sharply, while finance, healthcare, and information services remain more resilient.
+                The crisis heatmap showed how each type of shock affects industries differently. 
+                The 2008 financial crisis hammered financials and real estate while technology stayed 
+                stable. The 2020 pandemic crushed travel and retail while healthcare and tech surged.
               </p>
               <p>
-                Combining cyclical sectors (tech, industrials) with defensive sectors (healthcare, utilities) 
-                helps balance growth opportunities with stability during downturns.
+                The dot-com bubble destroyed tech valuations while traditional sectors barely noticed. 
+                No single sector provides universal protection. The type of crisis determines which 
+                industries suffer and which survive.
+              </p>
+            `,
+            target: '#frame-5'
+        },
+        sector: {
+            title: 'Market Value Does Not Match Economic Output',
+            body: `
+              <p>
+                The sector treemaps exposed a major disconnect. Technology and financials dominate 
+                market capitalization despite representing modest shares of GDP. Manufacturing, 
+                retail, and construction drive significant economic output but barely move the market.
               </p>
               <p>
-                This mix reduces volatility across market cycles and creates a more robust long-term portfolio.
+                This concentration creates opportunity during bull markets and severe risk during 
+                sector crashes. The market amplifies certain industries while ignoring others. 
+                Market structure looks very different from economic structure.
               </p>
             `,
             target: '#frame-6'
@@ -94,7 +108,7 @@
         }
     });
 
-    // additioanl close for off modal click for ui sake
+    // additional close for off modal click
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.remove('is-open');
