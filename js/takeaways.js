@@ -1,3 +1,4 @@
+// takeaways.js
 (function () {
 
     const modal = document.getElementById('insight-modal');
@@ -75,7 +76,24 @@
 
     let currentTarget = null;
 
-    // open
+    // back to takeaways button
+    const backButton = document.createElement('button');
+    backButton.className = 'back-to-takeaways';
+    backButton.innerHTML = '← Back to Takeaways';
+    backButton.style.display = 'none';
+    document.body.appendChild(backButton);
+    backButton.addEventListener('click', () => {
+        backButton.style.display = 'none';
+        document.querySelector('#frame-7').scrollIntoView({ behavior: 'smooth' });
+    });
+    // scrolling messes stuff up, so we only hide it when we go back to takeaways
+    window.addEventListener('frameEnter', (e) => {
+        if (e.detail.id === 'frame-7') {
+            backButton.style.display = 'none';
+        }
+    });
+
+    // open modal
     cards.forEach(card => {
         card.addEventListener('click', () => {
             const insight = card.getAttribute('data-insight');
@@ -91,16 +109,17 @@
         });
     });
 
-    // close
+    // close modal
     modalClose.addEventListener('click', () => {
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
         currentTarget = null;
     });
 
-    // vis cta
+    // go to vis
     modalGoto.addEventListener('click', () => {
         if (currentTarget) {
+            backButton.style.display = 'block';
             modal.classList.remove('is-open');
             modal.setAttribute('aria-hidden', 'true');
             document.querySelector(currentTarget).scrollIntoView({ behavior: 'smooth' });
@@ -108,7 +127,7 @@
         }
     });
 
-    // additional close for off modal click
+    // close on backdrop click
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.remove('is-open');
