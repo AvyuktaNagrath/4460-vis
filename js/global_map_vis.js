@@ -255,7 +255,8 @@ class GlobalMapVis {
         vis.mapHelperEl.append("xhtml:p")
             .style("margin", "0")
             .style("font-weight", "600")
-            .html("<strong>Interactive Map:</strong> Hover over any country to see its detailed recovery stats");
+            .html("<strong>Interactive Map:</strong> Hover over any country to see its detailed recovery stats. " +
+                "Use the buttons above (GDP Recovery, Market Recovery, or Lead) to switch the map’s metric and update the visualization.");
 
         vis.titleEl = vis.infoDiv.selectAll("h3.mode-title")
             .data([0])
