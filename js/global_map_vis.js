@@ -247,15 +247,15 @@ class GlobalMapVis {
                 .style("border", "1px solid #bae6fd")
                 .style("border-radius", "6px")
                 .style("padding", "10px 12px")
-                .style("margin", "16px 0 16px 0")
+                .style("margin", "-2px 0 16px 0")
                 .style("font-size", "13px")
                 .style("color", "#075985")
             );
 
         vis.mapHelperEl.append("xhtml:p")
-            .style("margin", "0")
+            .style("margin", "-1px 0 0 0")
             .style("font-weight", "600")
-            .html("<strong>Interactive Map:</strong> Hover over any country to see its detailed recovery stats");
+            .html("<strong>Interactive Map:</strong> Hover to view country stats. Click the buttons above the map to switch between GDP, Market, and Lead views." );
 
         vis.titleEl = vis.infoDiv.selectAll("h3.mode-title")
             .data([0])
