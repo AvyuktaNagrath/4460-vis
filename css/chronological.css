@@ -6,6 +6,19 @@
     justify-content: center;
 }
 
+#vis-ak1 .hover-line {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 8px;
+    cursor: crosshair;
+}
+#vis-ak1 .focus-line {
+    stroke: #aaa;
+    stroke-width: 1px;
+    stroke-dasharray: 3,3;
+    pointer-events: none;
+}
+
 /*
 .frame--chrono .vis-header,
 .frame--chrono .vis-stage {
