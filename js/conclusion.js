@@ -6,7 +6,7 @@ conclusionWrap.append("h2")
 
 conclusionWrap.append("p")
     .attr("class", "conclusion-intro")
-    .text("Markets and economies move on different timelines. Build a portfolio that accounts for both.");
+    .text("Markets and economies move on different timelines, so the data says to build a portfolio that accounts for both.");
 
 const strategiesGrid = conclusionWrap.append("div")
     .attr("class", "strategies-grid");
@@ -23,7 +23,7 @@ strategy1.append("h4")
     .text("Diversify by Geography");
 
 strategy1.append("p")
-    .text("Recovery times vary wildly by region. Developed markets recovered in 8-12 months while emerging markets took 20+ months. But stock markets anticipated recovery on similar timelines regardless of location.");
+    .text("Recovery times vary wildly by region. Developed markets recovered in 8-12 months while emerging markets took 20+ months, but stock markets anticipated recovery on similar timelines regardless of location.");
 
 strategy1.append("p")
     .attr("class", "strategy-detail")
@@ -53,7 +53,7 @@ strategy2.append("p")
 
 strategy2.append("p")
     .attr("class", "strategy-action")
-    .text("Buy during crashes when markets tank. Don't wait for economic data to confirm the recovery. Set quarterly rebalancing reminders during downturns instead of waiting for good news.");
+    .text("Buy during crashes when markets tank. Do not wait for economic data to confirm the recovery. Instead, set quarterly rebalancing reminders during downturns instead of waiting for good news.");
 
 // third
 const strategy3 = strategiesGrid.append("div")
@@ -67,11 +67,11 @@ strategy3.append("h4")
     .text("Balance Sectors for Crisis Protection");
 
 strategy3.append("p")
-    .text("Different crises destroy different sectors. The 2008 financial crisis crushed banks and real estate. The 2020 pandemic destroyed travel and retail. The dot-com bubble wiped out tech.");
+    .text("Different crises destroy different sectors. The dot-com bubble wiped out tech, the 2008 financial crisis crushed banks and real estate, and the pandemic destroyed travel and retail.");
 
 strategy3.append("p")
     .attr("class", "strategy-detail")
-    .text("Tech dominates market cap despite representing a smaller part of GDP. Manufacturing drives GDP but barely moves the S&P 500. Market concentration in growth sectors creates risk when those specific sectors crash.");
+    .text("Tech dominates market cap despite representing a smaller part of GDP, whereas manufacturing drives GDP but barely moves the S&P 500. Thus, market concentration in growth sectors creates risk when those specific sectors crash.");
 
 strategy3.append("p")
     .attr("class", "strategy-action")

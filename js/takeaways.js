@@ -1,4 +1,3 @@
-// takeaways.js
 (function () {
 
     const modal = document.getElementById('insight-modal');
@@ -30,7 +29,7 @@
             body: `
               <p>
                 The chronological chart tracked market cap as a percentage of GDP over 24 years. 
-                This ratio spiked during bubbles (dot-com, pre-2008) and crashed during crises, 
+                This ratio spiked during bubbles and crashed during crises, 
                 but always recovered faster than the underlying economy.
               </p>
               <p>
@@ -50,7 +49,7 @@
               </p>
               <p>
                 The dot-com bubble destroyed tech valuations while traditional sectors barely noticed. 
-                No single sector provides universal protection. The type of crisis determines which 
+                No single sector provides universal protection, and the type of crisis determines which 
                 industries suffer and which survive.
               </p>
             `,
@@ -60,14 +59,15 @@
             title: 'Market Value Does Not Match Economic Output',
             body: `
               <p>
-                The sector treemaps exposed a major disconnect. Technology and financials dominate 
-                market capitalization despite representing modest shares of GDP. Manufacturing, 
+                The sector tree maps exposed a major disconnect: technology and financials dominate 
+                market cap despite representing only modest shares of GDP. On the other hand, manufacturing, 
                 retail, and construction drive significant economic output but barely move the market.
               </p>
               <p>
-                This concentration creates opportunity during bull markets and severe risk during 
-                sector crashes. The market amplifies certain industries while ignoring others. 
-                Market structure looks very different from economic structure.
+                The market structure does not reflect economic structure. 
+                Following market cap indices overweights a portfolio in sectors that crash hardest 
+                during tech bubbles or financial crises, while underweighing in sectors that employ 
+                millions and produce real goods.
               </p>
             `,
             target: '#frame-6'
