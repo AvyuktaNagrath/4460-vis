@@ -112,30 +112,38 @@
 
             </div> </div>
     </section>
-
     <section id="frame-5" class="frame frame--pin frame--crisis" aria-labelledby="f5-title">
         <div class="pin">
-            <div class="vis-stage vis-stage--stack">
-                <svg id="vis-ak7" class="vis-svg vis-svg--timeline" viewBox="0 0 1200 220" role="img" aria-label="Crisis timeline">
-                    <g class="plot-area"></g>
-                    <rect id="timeline-brush" class="brush-rect" x="0" y="0" width="0" height="220" visibility="hidden"></rect>
-                    <text class="placeholder" x="24" y="36">AK7: Timeline placeholder (drag to brush)</text>
-                </svg>
-                <div class="hover-instructions">
-                    <h3>How to Explore</h3>
-                    <p>Hover over a crisis event above to highlight its corresponding column in the heatmap below.</p>
+            <div class="crisis-layout-wrapper">
+
+                <div class="vis-stage vis-stage--stack">
+                    <svg id="vis-ak7" class="vis-svg vis-svg--timeline" viewBox="0 0 1200 220" role="img" aria-label="Crisis timeline">
+                        <g class="plot-area"></g>
+                        <rect id="timeline-brush" class="brush-rect" x="0" y="0" width="0" height="220" visibility="hidden"></rect>
+                        <text class="placeholder" x="24" y="36">AK7: Timeline placeholder (drag to brush)</text>
+                    </svg>
+
+                    <svg id="vis-kz2" class="vis-svg vis-svg--heatmap" viewBox="0 0 1200 500" role="img" aria-label="Sector × Crisis heatmap">
+                        <g class="plot-area"></g>
+                        <text class="placeholder" x="24" y="40">KZ2: Heatmap placeholder (hover cells)</text>
+                    </svg>
                 </div>
 
-                <svg id="vis-kz2" class="vis-svg vis-svg--heatmap" viewBox="0 0 1200 500" role="img" aria-label="Sector × Crisis heatmap">
-                    <g class="plot-area"></g>
-                    <text class="placeholder" x="24" y="40">KZ2: Heatmap placeholder (hover cells)</text>
-                </svg>
-            </div>
-            <div class="info-card" aria-live="polite">
-                <h2 id="f5-title">Crises Reshape the Balance</h2>
-                <p id="f5-note">Brush a period to filter sectors; hover a cell to highlight the timeline.</p>
-            </div>
-        </div>
+                <div class="crisis-info-panel">
+                    <h2 id="f5-title">Crises Reshape the Balance</h2>
+
+                    <div class="instruction-box">
+                        <strong>Timeline ➔ Heatmap</strong>
+                        <p>Hover over a crisis event on the timeline to highlight its corresponding column(s) in the heatmap below</p>
+                    </div>
+
+                    <div class="instruction-box">
+                        <strong>Heatmap</strong>
+                        <p>Hover over any heatmap cell for details</p>
+                        <div id="heatmap-legend-container" class="legend-box"></div>
+                    </div>
+                </div>
+            </div> </div>
     </section>
 
     <section id="frame-6" class="frame frame--pin frame--sector" aria-labelledby="f6-title">

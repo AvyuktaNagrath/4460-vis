@@ -133,28 +133,87 @@ n
     color: white !important;
 }
 
-.frame--crisis .hover-instructions {
-    position: absolute;
-    right: -15rem;
-    top: 1rem;
-    width: 260px;
-    z-index: 10;
-}
-
-.frame--crisis .info-card {
-    position: absolute;
-    right: 4rem;
-    top: 20rem;
-    width: 260px;
-    z-index: 10;
-}
-
-.frame--crisis .vis-stage {
-    margin-right: 300px;
-}
-
 #vis-ak7,
 #vis-kz2 {
     width: 100% !important;
     height: auto !important;
+}
+
+.frame--crisis .crisis-layout-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1600px;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.frame--crisis .vis-stage--stack {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.frame--crisis .crisis-info-panel {
+    flex-basis: 260px;
+    flex-shrink: 0;
+    margin-top: 1rem;
+}
+
+.frame--crisis .crisis-info-panel h2 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    color: var(--fg);
+}
+
+.frame--crisis .instruction-box {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    color: #075985;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+}
+
+.frame--crisis .instruction-box strong {
+    color: #0c4a6e;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.frame--crisis .instruction-box p {
+    margin: 0;
+    color: #075985;
+}
+
+.frame--crisis .legend-box {
+    margin-top: 1rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+.frame--crisis .legend-container {
+    font-size: 13px;
+    color: var(--fg);
+    margin-top: 0 !important;
+}
+
+.frame--crisis .legend-title {
+    font-size: 13px;
+    color: var(--fg);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.frame--crisis .legend-labels {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--muted);
 }
