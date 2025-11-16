@@ -267,6 +267,22 @@ class GlobalMapVis {
                 .style("font-size","12px")
                 .style("line-height","1.5")
                 .style("color","#374151"));
+        vis.tableHelperEl = vis.infoDiv.selectAll("div.table-helper")
+            .data([0])
+            .join(enter => enter.append("xhtml:div")
+                .attr("class", "table-helper")
+                .style("background", "#f0f9ff")
+                .style("border", "1px solid #bae6fd")
+                .style("border-radius", "6px")
+                .style("padding", "10px 12px")
+                .style("margin", "16px 0 0 0")
+                .style("font-size", "13px")
+                .style("color", "#075985")
+            );
+        vis.tableHelperEl.append("xhtml:p")
+            .style("margin", "0")
+            .style("font-weight", "600")
+            .html("<strong>Interactive Table:</strong> Click any region row below to focus the map. Click clear button to clear region focus");
 
         // region summary panel
         vis.tableEl = vis.infoDiv.selectAll("table.region-table")
