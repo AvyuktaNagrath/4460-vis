@@ -217,3 +217,26 @@ n
     font-size: 13px;
     color: var(--muted);
 }
+
+.frame--crisis .takeaway-box {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+}
+
+.frame--crisis .takeaway-box strong {
+    color: var(--fg);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.frame--crisis .takeaway-box p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
