@@ -117,7 +117,7 @@
 
         const legendSvg = legendDiv.append("svg")
             .attr("id", "kz2-legend")
-            .attr("width", "10H0%")
+            .attr("width", "100%")
             .attr("height", 20)
             .style("display", "block")
             .style("margin-top", "4px");

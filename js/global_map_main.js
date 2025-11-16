@@ -29,7 +29,6 @@ const regionMapping = {
     'ZAF': 'Africa'
 };
 
-// (1) Load data with promises
 let promises = [
     d3.csv("data/cleaned_market.csv"),
     d3.csv("data/cleaned_gdp.csv")
@@ -47,23 +46,25 @@ function createVis(data) {
     let marketData = data[0];
     let gdpData = data[1];
 
-    console.log("Market data:", marketData);
-    console.log("GDP data:", gdpData);
+    // console.log("Market data:", marketData);
+    // console.log("GDP data:", gdpData);
 
-    // (2) Make our data look nicer and more useful
     const isoCodes = Object.keys(marketData[0]).filter(key => key !== 'Date');
 
     let recoveryData = isoCodes.map(function(iso3) {
-        // Check if GDP data exists for this country
         const hasGDP = gdpData[0][iso3] !== undefined;
 
-        // Find baseline (Dec 2019 = 100)
+        // baselines
         const mktBaseline = +marketData.find(d => d.Date === '2019-12-31')[iso3];
         const gdpBaseline = hasGDP ? +gdpData.find(d => d.Date === '2019-12-31')[iso3] : null;
 
-        // Find crash date (min in 2020)
-        let mktCrash = { date: null, value: Infinity };
-        let gdpCrash = { date: null, value: Infinity };
+        // crash date
+        let mktCrash = {
+            date: null, value: Infinity
+        };
+        let gdpCrash = {
+            date: null, value: Infinity
+        };
 
         marketData.forEach(d => {
             if (d.Date.startsWith('2020') && +d[iso3] < mktCrash.value) {
@@ -79,7 +80,7 @@ function createVis(data) {
             });
         }
 
-        // Find recovery date (first >= baseline that stays >= baseline next period)
+        // first date that is above baseline and next period also above baseline
         let mktRecovery = null;
         let gdpRecovery = null;
 
@@ -103,7 +104,7 @@ function createVis(data) {
             }
         }
 
-        // Calculate months
+        // months helper
         const monthsBetween = (d1, d2) => {
             const date1 = new Date(d1);
             const date2 = new Date(d2);
@@ -134,9 +135,8 @@ function createVis(data) {
         };
     });
 
-    console.log("Recovery data:", recoveryData);
-    console.table(recoveryData);
+    // console.log("Recovery data:", recoveryData);
+    // console.table(recoveryData);
 
-    // (3) Create visualization instance
     let globalMapVis = new GlobalMapVis("vis-an6", recoveryData);
 }

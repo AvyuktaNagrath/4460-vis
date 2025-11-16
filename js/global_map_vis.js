@@ -155,7 +155,7 @@ class GlobalMapVis {
         d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(world => {
             vis.countries = topojson.feature(world, world.objects.countries).features;
 
-            console.log("Loaded world map:", vis.countries);
+            // console.log("Loaded world map:", vis.countries);
 
             vis.dataByCountry = {};
             vis.data.forEach(d => {
