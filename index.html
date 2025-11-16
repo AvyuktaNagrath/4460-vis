@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="css/sector.css" />
     <link rel="stylesheet" href="css/explore.css" />
     <link rel="stylesheet" href="css/takeaways.css" />
+    <link rel="stylesheet" href="css/conclusion.css" />
+    <link rel="stylesheet" href="css/frame-intro.css" />
+
 
 
 
@@ -28,6 +31,9 @@
     <script defer src="js/global_map_vis.js"></script>
     <script defer src="js/global_map_main.js"></script>
     <script defer src="js/chronological.js"></script>
+    <script defer src="js/conclusion.js"></script>
+    <script defer src="js/intro.js"></script>
+
 
 </head>
 <body>
@@ -208,16 +214,21 @@
 
     <section id="frame-7" class="frame frame--takeaways" aria-labelledby="f7-title">
         <div class="cards">
-            <h2 id="f7-title">What the Data Says for Diversification</h2>
+            <h2 id="f7-title">Takeaways: What the Visualized Data Says for Strategy</h2>
             <p class="cards-hint">Click a card for more details</p>
-            <div class="card" data-insight="geographic">
-                <p>Diversify by region. Recovery speeds differ.</p>
-            </div>
-            <div class="card" data-insight="chronological">
-                <p>Time rebalances after recoveries. Markets lead GDP.</p>
-            </div>
-            <div class="card" data-insight="sector">
-                <p>Mix cyclical and defensive sectors.</p>
+            <div class="cards-grid">
+                <div class="card" data-insight="geographic">
+                    <p>Markets Lead GDP Recovery Globally</p>
+                </div>
+                <div class="card" data-insight="chronological">
+                    <p>Market Cap Diverges from Economic Reality</p>
+                </div>
+                <div class="card" data-insight="crisis">
+                    <p>Different Crises Hit Different Sectors</p>
+                </div>
+                <div class="card" data-insight="sector">
+                    <p>Market Value Does Not Match Economic Output</p>
+                </div>
             </div>
         </div>
 
@@ -235,6 +246,13 @@
             </div>
         </div>
     </section>
+
+    <section id="frame-8" class="frame frame--conclusion" aria-labelledby="f8-title">
+        <div class="conclusion-wrap">
+        </div>
+    </section>
+
+
     <div id="tooltip" class="tooltip" style="opacity: 0;"></div>
 </main>
 </body>

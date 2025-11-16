@@ -16,32 +16,74 @@
     font-size: 0.95rem;
 }
 
+.frame--takeaways .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
 .frame--takeaways .card {
-    display: inline-flex;
+    position: relative;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: min(100%, 20rem);
-    min-height: 9rem;
-    margin: .75rem;
-    border: 1px solid var(--line);
+    min-height: 14rem;
+    border: 2px solid var(--line);
     border-radius: .9rem;
-    padding: 1.25rem 1.5rem;
+    padding: 2.5rem 2rem;
     background: #fff;
-    transition: transform .2s, box-shadow .2s;
+    transition: all .3s;
     cursor: pointer;
+    overflow: hidden;
+}
+
+.frame--takeaways .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #0ea5e9, #06b6d4);
+    transform: scaleX(0);
+    transition: transform .3s;
+}
+
+.frame--takeaways .card:hover::before {
+    transform: scaleX(1);
 }
 
 .frame--takeaways .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.2);
+    border-color: #0ea5e9;
+}
+
+.frame--takeaways .card[data-insight="geographic"] {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+}
+
+.frame--takeaways .card[data-insight="chronological"] {
+    background: linear-gradient(135deg, #ffffff 0%, #ecfeff 100%);
+}
+
+.frame--takeaways .card[data-insight="crisis"] {
+    background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+}
+
+.frame--takeaways .card[data-insight="sector"] {
+    background: linear-gradient(135deg, #ffffff 0%, #fefce8 100%);
 }
 
 .frame--takeaways .card p {
     margin: 0;
     color: var(--fg);
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.5;
+    font-size: 1.25rem;
 }
 
 /* Modal */
@@ -104,4 +146,32 @@
 .modal-actions .btn {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+    .frame--takeaways .cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.back-to-takeaways {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+    transition: all 0.3s;
+    z-index: 999;
+}
+
+.back-to-takeaways:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(14, 165, 233, 0.5);
 }
