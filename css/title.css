@@ -46,3 +46,17 @@
     0%, 100% { opacity: .25; }
     50% { opacity: 1; }
 }
+
+.scroll-instruction {
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+    color: #64748b;
+    opacity: 0.9;
+    animation: fadeUp 2s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+    0% { opacity: 0.4; transform: translateY(3px); }
+    50% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0.4; transform: translateY(3px); }
+}
