@@ -189,6 +189,11 @@ body {
     padding: .5rem;
 }
 
+.frame--sector .panel__desc {
+    font-size: 0.85rem;
+    line-height: 1.35;
+}
+
 .divider {
     background: linear-gradient(to bottom, transparent, var(--line), transparent);
     width: 1px;
