@@ -77,58 +77,93 @@
     <section id="frame-4" class="frame frame--pin frame--chrono" aria-labelledby="f4-title">
         <div class="pin">
 
-            <div class="vis-header">
-                <h2 id="f4-title">Global Market Cap vs. GDP (2000-2024)</h2>
-                <div class="chart-controls">
-                    <label class="ctl" for="f4-region-filter">Filter by Region:
-                        <select id="f4-region-filter"></select>
-                    </label>
-                    <label class="ctl" for="f4-country-filter">Filter by Country:
-                        <select id="f4-country-filter"></select>
-                    </label>
-                    <button id="f4-reset-zoom" class="btn">Reset Zoom</button>
+            <div class="chrono-layout-wrapper">
+                <div class="chrono-vis-container">
+                    <div class="vis-header">
+                        <h2 id="f4-title">Global Market Cap vs. GDP (2000-2024)</h2>
+                        <div class="chart-controls">
+                            <label class="ctl" for="f4-region-filter">Filter by Region:
+                                <select id="f4-region-filter"></select>
+                            </label>
+                            <label class="ctl" for="f4-country-filter">Filter by Country:
+                                <select id="f4-country-filter"></select>
+                            </label>
+                            <button id="f4-reset-zoom" class="btn">Reset Zoom</button>
+                        </div>
+                    </div>
+
+                    <div class="vis-stage vis-stage--top">
+                        <svg id="vis-ak1" class="vis-svg" viewBox="0 0 1000 600" role="img" aria-label="GDP vs Market line chart">
+                            <g class="plot-area"></g>
+                            <text class="placeholder" x="24" y="40">Loading Market Cap Explorer...</text>
+                            <rect class="event-capture" x="0" y="0" width="1200" height="420" fill="transparent"></rect>
+                        </svg>
+                    </div>
                 </div>
-            </div>
+                <div class="chrono-info-panel">
 
-            <div class="vis-stage vis-stage--top">
-                <svg id="vis-ak1" class="vis-svg" viewBox="0 0 1000 600" role="img" aria-label="GDP vs Market line chart">
-                    <g class="plot-area"></g>
-                    <text class="placeholder" x="24" y="40">Loading Market Cap Explorer...</text>
-                    <rect class="event-capture" x="0" y="0" width="1200" height="420" fill="transparent"></rect>
-                </svg>
-            </div>
+                    <div class="instruction-box">
+                        <strong>How to Explore</strong>
+                        <ul>
+                            <li>Use the dropdowns to filter by region or country.</li>
+                            <li>Click and drag on the chart to pan and zoom.</li>
+                            <li>Use the 'Reset Zoom' button to return to the default view.</li>
+                        </ul>
+                    </div>
 
-        </div>
+                    <div class="takeaway-box">
+                        <strong>Market Pattern</strong>
+                        <p>Markets often move on expectations, not current reality. Try filtering for a single country (like the 'United States') and zooming in on the 2008 or 2020 crashes. Notice how the stock market line typically rebounds months before the GDP line. This 'lead-lag' dynamic is a key pattern to watch for</p>
+                    </div>
+
+                </div>
+            </div></div>
     </section>
-
     <section id="frame-5" class="frame frame--pin frame--crisis" aria-labelledby="f5-title">
         <div class="pin">
-            <div class="vis-stage vis-stage--stack">
-                <svg id="vis-ak7" class="vis-svg vis-svg--timeline" viewBox="0 0 1200 220" role="img" aria-label="Crisis timeline">
-                    <g class="plot-area"></g>
-                    <rect id="timeline-brush" class="brush-rect" x="0" y="0" width="0" height="220" visibility="hidden"></rect>
-                    <text class="placeholder" x="24" y="36">AK7: Timeline placeholder (drag to brush)</text>
-                </svg>
-                <div class="hover-instructions">
-                    <h3>How to Explore</h3>
-                    <p>Hover over a crisis event above to highlight its corresponding column in the heatmap below.</p>
+            <div class="crisis-layout-wrapper">
+
+                <div class="vis-stage vis-stage--stack">
+                    <svg id="vis-ak7" class="vis-svg vis-svg--timeline" viewBox="0 0 1200 220" role="img" aria-label="Crisis timeline">
+                        <g class="plot-area"></g>
+                        <rect id="timeline-brush" class="brush-rect" x="0" y="0" width="0" height="220" visibility="hidden"></rect>
+                        <text class="placeholder" x="24" y="36">AK7: Timeline placeholder (drag to brush)</text>
+                    </svg>
+
+                    <svg id="vis-kz2" class="vis-svg vis-svg--heatmap" viewBox="0 0 1200 500" role="img" aria-label="Sector × Crisis heatmap">
+                        <g class="plot-area"></g>
+                        <text class="placeholder" x="24" y="40">KZ2: Heatmap placeholder (hover cells)</text>
+                    </svg>
                 </div>
 
-                <svg id="vis-kz2" class="vis-svg vis-svg--heatmap" viewBox="0 0 1200 500" role="img" aria-label="Sector × Crisis heatmap">
-                    <g class="plot-area"></g>
-                    <text class="placeholder" x="24" y="40">KZ2: Heatmap placeholder (hover cells)</text>
-                </svg>
-            </div>
-            <div class="info-card" aria-live="polite">
-                <h2 id="f5-title">Crises Reshape the Balance</h2>
-                <p id="f5-note">Brush a period to filter sectors; hover a cell to highlight the timeline.</p>
-            </div>
-        </div>
+                <div class="crisis-info-panel">
+                    <h2 id="f5-title">Crisis vs. Industrial Sectors</h2>
+
+                    <div class="instruction-box">
+                        <strong>Timeline ➔ Heatmap</strong>
+                        <p>Hover over a crisis event on the timeline to highlight its corresponding column(s) in the heatmap below</p>
+                    </div>
+
+                    <div class="instruction-box">
+                        <strong>Heatmap</strong>
+                        <p>Hover over any heatmap cell for details</p>
+                        <div id="heatmap-legend-container" class="legend-box"></div>
+                    </div>
+
+                    <div class="takeaway-box">
+                        <strong>Crisis Reshape the Balance</strong>
+                        <p>The heatmap reveals how shocks unevenly affect sectors. Defensive sectors (like Finance & Insurance) often stay stable or grow, while cyclical sectors (like Manufacturing) are more volatile. The timeline shows which crisis caused the biggest change.</p>
+                    </div>
+                </div>
+            </div> </div>
     </section>
 
     <section id="frame-6" class="frame frame--pin frame--sector" aria-labelledby="f6-title">
         <div class="pin">
             <div class="vis-stage vis-stage--twin">
+                <div class="panel__interaction-note panel__interaction-note--full">
+                    <strong>How to Explore:</strong> Hover over any block in either treemap to see the sector's name, value, and share of the total.
+                </div>
                 <div class="panel panel--left">
                     <div class="panel__title">Real Economy (GDP)</div>
                     <svg id="vis-ak6-gdp" class="vis-svg" viewBox="0 0 560 560" role="img" aria-label="Sector GDP share">

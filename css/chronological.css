@@ -135,8 +135,8 @@
 /* Instruction box next to timeline */
 .frame--crisis .hover-instructions {
     position: absolute;
-    top: 2rem;                 /* aligns near timeline height */
-    right: -13rem;               /* same alignment as info-card */
+    top: 2rem;
+    right: -13rem;
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid var(--line);
     border-radius: 0.6rem;
@@ -160,4 +160,93 @@
     width: auto;
     max-width: 100%;
     display: block;
+}
+
+.frame--chrono .pin {
+    padding-top: 2rem;
+}
+
+.frame--chrono .chrono-layout-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1400px;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.frame--chrono .chrono-vis-container {
+    flex-basis: 1200px;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.frame--chrono .instruction-box {
+    flex-basis: 240px;
+    flex-shrink: 0;
+
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    color: #075985;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.frame--chrono .instruction-box strong {
+    color: #0c4a6e;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.frame--chrono .instruction-box ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.frame--chrono .chrono-info-panel {
+    flex-basis: 240px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.frame--chrono .instruction-box {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    color: #075985;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.frame--chrono .takeaway-box {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+}
+
+.frame--chrono .takeaway-box strong {
+    color: var(--fg);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.frame--chrono .takeaway-box p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
 }

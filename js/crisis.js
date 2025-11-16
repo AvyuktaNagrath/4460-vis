@@ -105,7 +105,7 @@
             .text(d => d.PercentChange.toFixed(1) + "%")
             .attr("data-year", d => d.Year);
 
-        const legendContainer = d3.select("#frame-5 .info-card");
+        const legendContainer = d3.select("#heatmap-legend-container");
 
         const legendDiv = legendContainer.append("div")
             .attr("class", "legend-container")
