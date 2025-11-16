@@ -239,16 +239,23 @@ class GlobalMapVis {
                 .text("Global Recovery Comparison - GDP vs. Markets")
             );
 
-        vis.helperEl = vis.infoDiv.selectAll("p.frame-helper")
+        vis.mapHelperEl = vis.infoDiv.selectAll("div.map-helper")
             .data([0])
-            .join(enter => enter.append("xhtml:p")
-                .attr("class", "frame-helper")
-                .style("margin", "0 0 10px 0")
-                .style("font-size", "14px")
-                .style("line-height", "1.35")
-                .style("color", "#475569")
-                .text("Hover any country to see specific stats. Switch modes above to compare GDP, Market, and the difference between the two. Select a region in the table to highlight its countries on the map.")
+            .join(enter => enter.append("xhtml:div")
+                .attr("class", "map-helper")
+                .style("background", "#f0f9ff")
+                .style("border", "1px solid #bae6fd")
+                .style("border-radius", "6px")
+                .style("padding", "10px 12px")
+                .style("margin", "16px 0 16px 0")
+                .style("font-size", "13px")
+                .style("color", "#075985")
             );
+
+        vis.mapHelperEl.append("xhtml:p")
+            .style("margin", "0")
+            .style("font-weight", "600")
+            .html("<strong>Interactive Map:</strong> Hover over any country to see its detailed recovery stats");
 
         vis.titleEl = vis.infoDiv.selectAll("h3.mode-title")
             .data([0])
@@ -282,7 +289,7 @@ class GlobalMapVis {
         vis.tableHelperEl.append("xhtml:p")
             .style("margin", "0")
             .style("font-weight", "600")
-            .html("<strong>Interactive Table:</strong> Click any region row below to focus the map. Click clear button to clear region focus");
+            .html("<strong>Interactive Table:</strong> Click any region row below to focus the map. Use clear button to clear region focus");
 
         // region summary panel
         vis.tableEl = vis.infoDiv.selectAll("table.region-table")
