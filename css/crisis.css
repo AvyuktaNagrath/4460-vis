@@ -240,3 +240,8 @@ n
     font-size: 0.9rem;
     line-height: 1.5;
 }
+
+#frame-6 .pin {
+    top: -2rem !important;
+    height: calc(100vh + 2rem) !important;
+}
