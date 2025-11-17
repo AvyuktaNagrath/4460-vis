@@ -9,7 +9,7 @@ The website guides the user through multiple perspectives, including long-term t
 **GitHub Pages Link:** https://avyuktanagrath.github.io/4460-vis/ 
 
 ### Screencast Video
-**Project Video:** video link here
+**Project Video:** https://www.youtube.com/watch?v=1doYTp1OjFA
 
 ## Repository Structure
 css/ All styling files for each section of the story (our code)     
