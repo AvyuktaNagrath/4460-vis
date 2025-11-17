@@ -38,8 +38,10 @@ body {
 .frame {
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    min-height: 100vh;
-    height: 100vh;
+    /*min-height: 100vh;
+    height: 100vh;*/
+    height: auto !important;
+    min-height: 100vh !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +50,8 @@ body {
     transform: translateY(1rem);
     transition: opacity .6s, transform .6s;
     position: relative;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    overflow: visible !important;
 }
 
 .frame.is-entered {

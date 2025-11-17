@@ -107,3 +107,10 @@
         gap: 1.5rem;
     }
 }
+
+#frame-8 {
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    padding: 3rem 0 !important;   /* optional but recommended */
+}
