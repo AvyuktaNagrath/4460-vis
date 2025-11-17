@@ -6,7 +6,7 @@ Any interactive features within each visualization are clearly indicated on-scre
 The website guides the user through multiple perspectives, including long-term trends, crisis periods, sector relationships, and an exploratory view for deeper investigation.
 
 ### Live Website
-**GitHub Pages Link:** [pages link here](https://avyuktanagrath.github.io/4460-vis/ )
+**GitHub Pages Link:** https://avyuktanagrath.github.io/4460-vis/ 
 
 ### Screencast Video
 **Project Video:** video link here
